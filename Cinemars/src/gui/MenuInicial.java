@@ -48,7 +48,8 @@ public class MenuInicial extends JFrame {
 					    }
 					
 					MenuInicial frame = new MenuInicial();
-					
+					frame.setLocationRelativeTo(null);
+					frame.setResizable(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

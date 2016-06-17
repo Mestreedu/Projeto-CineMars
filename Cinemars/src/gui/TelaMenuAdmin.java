@@ -72,7 +72,7 @@ public class TelaMenuAdmin extends JFrame {
 
 			}
 		});
-		btnCadastrarCinema.setIcon(new ImageIcon("Imagens\\addCinema.png"));
+		btnCadastrarCinema.setIcon(new ImageIcon("Imagens//addCinema.png"));
 		btnCadastrarCinema.setBounds(648, 170, 131, 140);
 		btnCadastrarCinema.setBorder(BorderFactory.createEmptyBorder());
 		btnCadastrarCinema.setFocusPainted(false);
@@ -96,7 +96,7 @@ public class TelaMenuAdmin extends JFrame {
 				menuInicial.setLocationRelativeTo(null);
 			}
 		});
-		btnVoltar.setIcon(new ImageIcon("C:\\Users\\Eduardo\\Downloads\\VoltarIcon.png"));
+		btnVoltar.setIcon(new ImageIcon("Imagens//VoltarIcon.png"));
 		btnVoltar.setBounds(0, 570, 69, 74);
 		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
 		btnVoltar.setFocusPainted(false);
@@ -119,7 +119,7 @@ public class TelaMenuAdmin extends JFrame {
 		contentPane.add(list);
 
 		JButton updateCineButton = new JButton("");
-		updateCineButton.setIcon(new ImageIcon("C:\\Users\\Eduardo\\Downloads\\UpdateFinalIcon.png"));
+		updateCineButton.setIcon(new ImageIcon("Imagens//UpdateFinalIcon.png"));
 		updateCineButton.setBounds(648, 384, 131, 116);
 		updateCineButton.setBorder(BorderFactory.createEmptyBorder());
 		updateCineButton.setContentAreaFilled(false);
@@ -133,14 +133,14 @@ public class TelaMenuAdmin extends JFrame {
 		contentPane.add(lblAtualizarCinemas);
 
 		JLabel lblListadeCinemasSeus = new JLabel("Seus Cinemas");
-		lblListadeCinemasSeus.setIcon(new ImageIcon("C:\\Users\\Eduardo\\Downloads\\Movie-Studio-icon.png"));
+		lblListadeCinemasSeus.setIcon(new ImageIcon("Imagens//Movie-Studio-icon.png"));
 		lblListadeCinemasSeus.setForeground(new Color(255, 255, 0));
 		lblListadeCinemasSeus.setFont(new Font("OCR A Extended", Font.ITALIC, 18));
 		lblListadeCinemasSeus.setBounds(135, 244, 220, 45);
 		contentPane.add(lblListadeCinemasSeus);
 
 		JButton ferramentasIconButton = new JButton("");
-		ferramentasIconButton.setIcon(new ImageIcon("C:\\Users\\Eduardo\\Downloads\\FerramentasIcon.png"));
+		ferramentasIconButton.setIcon(new ImageIcon("Imagens//FerramentasIcon.png"));
 		ferramentasIconButton.setBounds(963, 593, 52, 65);
 		ferramentasIconButton.setBorder(BorderFactory.createEmptyBorder());
 		ferramentasIconButton.setFocusPainted(false);
@@ -154,7 +154,7 @@ public class TelaMenuAdmin extends JFrame {
 		contentPane.add(lblBemvindo);
 
 		JLabel lblMenuAdmin = new JLabel("");
-		lblMenuAdmin.setIcon(new ImageIcon("C:\\Users\\Eduardo\\Downloads\\TelaCAdmin.jpg"));
+		lblMenuAdmin.setIcon(new ImageIcon("Imagens//TelaCAdmin.jpg"));
 		lblMenuAdmin.setBounds(0, 0, 1020, 655);
 		contentPane.add(lblMenuAdmin);
 	}

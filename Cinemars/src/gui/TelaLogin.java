@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -27,6 +29,12 @@ public class TelaLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+						if ("Nimbus".equals(info.getName())) {
+							UIManager.setLookAndFeel(info.getClassName());
+							break;
+						}
+					}
 					TelaLogin frame = new TelaLogin();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
@@ -49,28 +57,28 @@ public class TelaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		textField = new JTextField();
 		textField.setBounds(436, 119, 218, 28);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblNewLabel = new JLabel("Login");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(393, 123, 38, 16);
 		contentPane.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Senha");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(390, 192, 46, 16);
 		contentPane.add(lblNewLabel_1);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(436, 188, 218, 28);
 		contentPane.add(passwordField);
-		
+
 		JLabel label = new JLabel(" ");
 		label.setIcon(new ImageIcon("Imagens//PipocaLogin.png"));
 		label.setBounds(0, 0, 664, 382);
