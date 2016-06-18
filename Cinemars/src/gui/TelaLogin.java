@@ -1,25 +1,29 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.JPasswordField;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import java.awt.Color;
-import java.awt.Font;
+import javax.swing.border.EmptyBorder;
+
+import classesBasicasPessoa.Administrador;
+import negocio.Fachada;
+import javax.swing.JButton;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TelaLogin extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textLogin;
 	private JPasswordField passwordField;
 
 	/**
@@ -50,6 +54,7 @@ public class TelaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaLogin() {
+		Fachada f = new Fachada();
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 680, 420);
@@ -58,22 +63,42 @@ public class TelaLogin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		textField = new JTextField();
-		textField.setBounds(436, 119, 218, 28);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textLogin = new JTextField();
+		textLogin.setBounds(436, 119, 218, 28);
+		contentPane.add(textLogin);
+		textLogin.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Login");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(393, 123, 38, 16);
-		contentPane.add(lblNewLabel);
+		JLabel lbLogin = new JLabel("Login");
+		lbLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lbLogin.setForeground(Color.WHITE);
+		lbLogin.setBounds(394, 119, 38, 24);
+		contentPane.add(lbLogin);
 
-		JLabel lblNewLabel_1 = new JLabel("Senha");
-		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(390, 192, 46, 16);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setForeground(Color.WHITE);
+		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSenha.setBounds(390, 192, 46, 16);
+		contentPane.add(lblSenha);
+		
+		
+		
+		JButton btnLogar = new JButton("Logar");
+		btnLogar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				Object o = f.checkType(textLogin.getText());
+				if(o instanceof Administrador){
+					
+					TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
+					telaMenuAdmin.setResizable(false);
+					telaMenuAdmin.setLocationRelativeTo(null);
+					telaMenuAdmin.setVisible(true);
+				} 
+			}
+		});
+		btnLogar.setBounds(506, 238, 89, 23);
+		contentPane.add(btnLogar);
+		
 
 		passwordField = new JPasswordField();
 		passwordField.setBounds(436, 188, 218, 28);
@@ -81,7 +106,7 @@ public class TelaLogin extends JFrame {
 
 		JLabel label = new JLabel(" ");
 		label.setIcon(new ImageIcon("Imagens//PipocaLogin.png"));
-		label.setBounds(0, 0, 664, 382);
+		label.setBounds(0, 0, 674, 393);
 		contentPane.add(label);
 	}
 }

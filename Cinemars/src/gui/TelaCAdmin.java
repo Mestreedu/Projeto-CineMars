@@ -150,7 +150,8 @@ public class TelaCAdmin extends JFrame {
 		contentPane.add(textLogin);
 
 		JLabel lblLabelUsuario = new JLabel("New label");
-		lblLabelUsuario.setBounds(0, 0, 1009, 654);
+		lblLabelUsuario.setIcon(new ImageIcon("C:\\Users\\Eduardo\\git\\Projeto-CineMars\\Cinemars\\Imagens\\TelaCUsuario1.jpg"));
+		lblLabelUsuario.setBounds(0, 0, 1019, 654);
 		contentPane.add(lblLabelUsuario);
 	}
 

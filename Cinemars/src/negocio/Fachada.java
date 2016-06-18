@@ -1,12 +1,12 @@
 package negocio;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import classesBasicasCinema.Cinema;
 import classesBasicasCinema.Filme;
-
 import classesBasicasCinema.Ingresso;
 import classesBasicasPessoa.Administrador;
 import classesBasicasPessoa.Usuario;
@@ -203,6 +203,24 @@ public class Fachada implements IFachada, Serializable {
 			verificar = true;
 
 		return verificar;
+	}
+	
+	public Object checkType(String login){
+		Object o = null;
+		Usuario u = this.procurarUsuario(login);
+		Administrador adm = this.procurarAdmin(login);
+		
+		if (u != null) {
+			o = u;
+		}
+		else if (adm != null){
+			o = adm;
+		} else{
+			JOptionPane.showMessageDialog(null, "PESSOA NAO ENCONTRADA!");
+		}
+		
+		
+		return o;
 	}
 
 	/*

@@ -138,20 +138,28 @@ public class MenuInicial extends JFrame {
 			}
 		});
 		
-		JButton usuarioLoginButton = new JButton("Entrar");
-		usuarioLoginButton.addKeyListener(new KeyAdapter() {
+		JButton loginButton = new JButton("Entrar");
+		loginButton.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent arg0) {
+			public void keyReleased(KeyEvent e) {
 				dispose();
 				TelaLogin telaLogin = new TelaLogin();
 				telaLogin.setVisible(true);
 				telaLogin.setLocationRelativeTo(null);
 				telaLogin.setResizable(false);
-				
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				dispose();
+				TelaLogin telaLogin = new TelaLogin();
+				telaLogin.setVisible(true);
+				telaLogin.setLocationRelativeTo(null);
+				telaLogin.setResizable(false);
 			}
 		});
-		usuarioLoginButton.setBounds(499, 407, 89, 23);
-		contentPane.add(usuarioLoginButton);
+		
+		loginButton.setBounds(499, 407, 89, 23);
+		contentPane.add(loginButton);
 		
 		JLabel usuarioImage = new JLabel("Usuario");
 		usuarioImage.setIcon(new ImageIcon("Imagens\\UserLogin1.png"));
@@ -159,7 +167,9 @@ public class MenuInicial extends JFrame {
 		contentPane.add(usuarioImage);
 		
 		
-		
-		JLabel lblNewLabel = new JLabel("Fundo");
+		JLabel lblFundo = new JLabel("New label");
+		lblFundo.setIcon(new ImageIcon("Imagens\\TelaInicial.png"));
+		lblFundo.setBounds(0, 0, 1025, 682);
+		contentPane.add(lblFundo);
 	}
 	}
