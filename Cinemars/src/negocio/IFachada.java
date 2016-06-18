@@ -32,7 +32,7 @@ public interface IFachada {
 
 	public abstract boolean cadastrarUsuario(Usuario u);
 	
-
+	public abstract Object checkType(String Login);
 
 	public abstract void salvarUsuario();
 

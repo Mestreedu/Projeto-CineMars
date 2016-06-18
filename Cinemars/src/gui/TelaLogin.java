@@ -19,6 +19,8 @@ import negocio.Fachada;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaLogin extends JFrame {
 
@@ -79,26 +81,23 @@ public class TelaLogin extends JFrame {
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblSenha.setBounds(390, 192, 46, 16);
 		contentPane.add(lblSenha);
-		
-		
-		
+
 		JButton btnLogar = new JButton("Logar");
-		btnLogar.addKeyListener(new KeyAdapter() {
+		btnLogar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void keyReleased(KeyEvent arg0) {
+			public void mouseReleased(MouseEvent e) {
 				Object o = f.checkType(textLogin.getText());
-				if(o instanceof Administrador){
-					
+				if (o instanceof Administrador) {
+					dispose();
 					TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
 					telaMenuAdmin.setResizable(false);
 					telaMenuAdmin.setLocationRelativeTo(null);
 					telaMenuAdmin.setVisible(true);
-				} 
+				}
 			}
 		});
 		btnLogar.setBounds(506, 238, 89, 23);
 		contentPane.add(btnLogar);
-		
 
 		passwordField = new JPasswordField();
 		passwordField.setBounds(436, 188, 218, 28);

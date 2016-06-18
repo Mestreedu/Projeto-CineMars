@@ -89,31 +89,25 @@ public class MenuInicial extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton adminRegistrarButton = new JButton("");
-		adminRegistrarButton.addKeyListener(new KeyAdapter() {
+		adminRegistrarButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void keyReleased(KeyEvent arg0) {
+			public void mouseReleased(MouseEvent e) {
 				dispose();
 				TelaCAdmin telaCAdmin = new TelaCAdmin();
-				telaCAdmin.setVisible(true);
-				telaCAdmin.setLocationRelativeTo(null);
 				telaCAdmin.setResizable(false);
+				telaCAdmin.setLocationRelativeTo(null);
+				telaCAdmin.setVisible(true);
 			}
 		});
+		
 		adminRegistrarButton.setIcon(new ImageIcon("Imagens\\AdminButton.png"));
 		adminRegistrarButton.setFont(new Font("Lucida Console", adminRegistrarButton.getFont().getStyle(), 22));
 		adminRegistrarButton.setBorder(BorderFactory.createEmptyBorder());
 		adminRegistrarButton.setFocusPainted(false);
 		adminRegistrarButton.setContentAreaFilled(false);
-		adminRegistrarButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		adminRegistrarButton.setBounds(281, 177, 144, 145);
 		contentPane.add(adminRegistrarButton);
-		adminRegistrarButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
 		
 		JButton usuarioRegistrarButton = new JButton("");
 		usuarioRegistrarButton.addMouseListener(new MouseAdapter() {
@@ -138,28 +132,19 @@ public class MenuInicial extends JFrame {
 			}
 		});
 		
-		JButton loginButton = new JButton("Entrar");
-		loginButton.addKeyListener(new KeyAdapter() {
+		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void mouseReleased(MouseEvent arg0) {
 				dispose();
 				TelaLogin telaLogin = new TelaLogin();
-				telaLogin.setVisible(true);
-				telaLogin.setLocationRelativeTo(null);
 				telaLogin.setResizable(false);
-			}
-			@Override
-			public void keyPressed(KeyEvent e) {
-				dispose();
-				TelaLogin telaLogin = new TelaLogin();
-				telaLogin.setVisible(true);
 				telaLogin.setLocationRelativeTo(null);
-				telaLogin.setResizable(false);
+				telaLogin.setVisible(true);
 			}
 		});
-		
-		loginButton.setBounds(499, 407, 89, 23);
-		contentPane.add(loginButton);
+		btnEntrar.setBounds(494, 407, 89, 23);
+		contentPane.add(btnEntrar);
 		
 		JLabel usuarioImage = new JLabel("Usuario");
 		usuarioImage.setIcon(new ImageIcon("Imagens\\UserLogin1.png"));

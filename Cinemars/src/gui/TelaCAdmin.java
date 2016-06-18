@@ -12,14 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
-import classesBasicasPessoa.Usuario;
+import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
 
 public class TelaCAdmin extends JFrame {
@@ -32,6 +30,7 @@ public class TelaCAdmin extends JFrame {
 	private JLabel senhaCUsuario;
 	private JPasswordField passwordField;
 	private Fachada f;
+	private String senha;
 
 	/**
 	 * Launch the application.
@@ -57,6 +56,7 @@ public class TelaCAdmin extends JFrame {
 			}
 		});
 	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -72,63 +72,28 @@ public class TelaCAdmin extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel nomeCUsuario = new JLabel("Nome");
-		nomeCUsuario.setFont(nomeCUsuario.getFont().deriveFont(
-				nomeCUsuario.getFont().getStyle() | Font.BOLD));
+		nomeCUsuario.setFont(nomeCUsuario.getFont().deriveFont(nomeCUsuario.getFont().getStyle() | Font.BOLD));
 		nomeCUsuario.setBounds(565, 201, 33, 16);
 		contentPane.add(nomeCUsuario);
 
 		JLabel emailCUsuario = new JLabel("Email");
-		emailCUsuario.setFont(emailCUsuario.getFont().deriveFont(
-				emailCUsuario.getFont().getStyle() | Font.BOLD));
+		emailCUsuario.setFont(emailCUsuario.getFont().deriveFont(emailCUsuario.getFont().getStyle() | Font.BOLD));
 		emailCUsuario.setBounds(565, 241, 33, 16);
 		contentPane.add(emailCUsuario);
 
 		JLabel loginCUsuario = new JLabel("Login");
-		loginCUsuario.setFont(loginCUsuario.getFont().deriveFont(
-				loginCUsuario.getFont().getStyle() | Font.BOLD));
+		loginCUsuario.setFont(loginCUsuario.getFont().deriveFont(loginCUsuario.getFont().getStyle() | Font.BOLD));
 		loginCUsuario.setBounds(566, 281, 33, 16);
 		contentPane.add(loginCUsuario);
 
 		senhaCUsuario = new JLabel("Senha");
-		senhaCUsuario.setFont(senhaCUsuario.getFont().deriveFont(
-				senhaCUsuario.getFont().getStyle() | Font.BOLD));
+		senhaCUsuario.setFont(senhaCUsuario.getFont().deriveFont(senhaCUsuario.getFont().getStyle() | Font.BOLD));
 		senhaCUsuario.setBounds(562, 321, 36, 16);
 		contentPane.add(senhaCUsuario);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setBounds(745, 399, 116, 28);
 		contentPane.add(btnCadastrar);
-
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				if (textNome.getText().length() > 0) {
-					if (textEmail.getText().length() > 0) {
-						if (textLogin.getText().length() > 0) {
-							if (passwordField.getPassword().length > 0) {
-								String password = new String(passwordField
-										.getPassword());
-								char[] codigo = passwordField.getPassword();
-								dispose();
-								TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
-								telaMenuAdmin.setVisible(true);
-								telaMenuAdmin.setLocationRelativeTo(null);
-								telaMenuAdmin.setResizable(false);
-							}
-						} else {
-							JOptionPane.showMessageDialog(null,
-									"ERRO, LOGIN INVALIDO");
-						}
-					} else {
-						JOptionPane.showMessageDialog(null,
-								"ERRO, EMAIL INVALIDO");
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "ERRO, NOME INVALIDO");
-				}
-
-			}
-		});
 
 		passwordField = new JPasswordField();
 		passwordField.setBounds(602, 315, 380, 28);
@@ -149,8 +114,50 @@ public class TelaCAdmin extends JFrame {
 		textLogin.setBounds(603, 275, 380, 28);
 		contentPane.add(textLogin);
 
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (textNome.getText().length() > 0) {
+					if (textEmail.getText().length() > 0) {
+						if (textLogin.getText().length() > 0) {
+							if (passwordField.getPassword().length > 0) {
+								char[] codigo = passwordField.getPassword();
+								for (int i = 0; i < codigo.length; i++) {
+									if (i > 0) {
+										senha += Character.toString(codigo[i]);
+									} else {
+										senha = Character.toString(codigo[i]);
+									}
+								}
+								Administrador adm = new Administrador(textNome.getText(), textEmail.getText(),
+										textLogin.getText(), senha);
+								f.cadastrarAdmin(adm);
+								dispose();
+								TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
+								telaMenuAdmin.setVisible(true);
+								telaMenuAdmin.setLocationRelativeTo(null);
+								telaMenuAdmin.setResizable(false);
+
+							} else {
+								JOptionPane.showMessageDialog(null, "ERRO, SENHA INVALIDA");
+							}
+
+						} else {
+							JOptionPane.showMessageDialog(null, "ERRO, LOGIN INVALIDO");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "ERRO, EMAIL INVALIDO");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "ERRO, NOME INVALIDO");
+				}
+
+			}
+		});
+
 		JLabel lblLabelUsuario = new JLabel("New label");
-		lblLabelUsuario.setIcon(new ImageIcon("C:\\Users\\Eduardo\\git\\Projeto-CineMars\\Cinemars\\Imagens\\TelaCUsuario1.jpg"));
+		lblLabelUsuario.setIcon(
+				new ImageIcon("C:\\Users\\Eduardo\\git\\Projeto-CineMars\\Cinemars\\Imagens\\TelaCUsuario1.jpg"));
 		lblLabelUsuario.setBounds(0, 0, 1019, 654);
 		contentPane.add(lblLabelUsuario);
 	}

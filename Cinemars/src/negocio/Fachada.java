@@ -211,10 +211,10 @@ public class Fachada implements IFachada, Serializable {
 		Administrador adm = this.procurarAdmin(login);
 		
 		if (u != null) {
-			o = u;
+			o = (Usuario) u;
 		}
 		else if (adm != null){
-			o = adm;
+			o = (Administrador) adm;
 		} else{
 			JOptionPane.showMessageDialog(null, "PESSOA NAO ENCONTRADA!");
 		}
