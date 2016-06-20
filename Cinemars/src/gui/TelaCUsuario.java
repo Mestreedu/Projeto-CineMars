@@ -124,7 +124,8 @@ public class TelaCUsuario extends JFrame {
 		contentPane.add(spinIdade);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(714, 447, 90, 28);
+		btnCadastrar.setIcon(new ImageIcon("Imagens\\Sign.png"));
+		btnCadastrar.setBounds(727, 447, 109, 28);
 		contentPane.add(btnCadastrar);
 
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -157,11 +158,12 @@ public class TelaCUsuario extends JFrame {
 														|| cartaoNum[j] == '7' || cartaoNum[j] == '8'
 														|| cartaoNum[j] == '9') {
 
-													nCartao += cartaoNum[j];
+													//nCartao += cartaoNum[j];
 												} else {
-													JOptionPane.showMessageDialog(null,
-															"ERRO, NUMERO DO CARTAO DEVE SER NUMERICO");
+													
 												}
+											
+											nCartao = Long.valueOf(textCartao.getText()).longValue();
 											}
 
 											Usuario u = new Usuario(textNome.getText(), textEmail.getText(),
@@ -225,7 +227,7 @@ public class TelaCUsuario extends JFrame {
 
 		JLabel lblLabelUsuario = new JLabel("New label");
 		lblLabelUsuario.setIcon(new ImageIcon("Imagens\\TelaCUsuario1.jpg"));
-		lblLabelUsuario.setBounds(0, 0, 1009, 654);
+		lblLabelUsuario.setBounds(0, -10, 1009, 654);
 		contentPane.add(lblLabelUsuario);
 	}
 }

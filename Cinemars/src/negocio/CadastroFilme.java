@@ -2,6 +2,8 @@ package negocio;
 
 import java.io.Serializable;
 
+import javax.swing.JOptionPane;
+
 import classesBasicasCinema.Filme;
 import dados.IRepositorioFilme;
 import dados.RepositorioFilmesArray;
@@ -24,12 +26,12 @@ public class CadastroFilme implements ICadastroFilme, Serializable{
 	@Override
 	public void cadastrar(Filme f) {
 		if (f == null) {
-			System.out.println("PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
 		} else {
 			if (!this.existe(f.getID())) {
 				this.repositorio.cadastrar(f);
 			} else {
-				System.out.println("ERRO! FILME JÁ CADASTRADO!");
+				JOptionPane.showMessageDialog(null,"ERRO! FILME JÁ CADASTRADO!");
 			}
 		}
 	}

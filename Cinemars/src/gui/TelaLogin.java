@@ -3,10 +3,14 @@ package gui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -15,12 +19,11 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
 import classesBasicasPessoa.Administrador;
+import classesBasicasPessoa.Pessoa;
+import classesBasicasPessoa.Usuario;
 import negocio.Fachada;
-import javax.swing.JButton;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame {
 
@@ -83,20 +86,33 @@ public class TelaLogin extends JFrame {
 		contentPane.add(lblSenha);
 
 		JButton btnLogar = new JButton("Logar");
+		btnLogar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnLogar.setIcon(new ImageIcon("Imagens\\LoginIcon.png"));
 		btnLogar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				Object o = f.checkType(textLogin.getText());
-				if (o instanceof Administrador) {
+				Pessoa p = f.checkType(textLogin.getText());
+				Usuario u = f.procurarUsuario(p.getLogin());
+				Administrador adm = f.procurarAdmin(p.getLogin());
+				if (adm != null) {
 					dispose();
+					f.loginAdmin(p.getLogin(), p.getSenha());
 					TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
 					telaMenuAdmin.setResizable(false);
 					telaMenuAdmin.setLocationRelativeTo(null);
 					telaMenuAdmin.setVisible(true);
+				}else if (u != null){
+					dispose();
+					JOptionPane.showMessageDialog(null, "MENU USUARIO!");
+				}else{
+					JOptionPane.showMessageDialog(null, "LOGIN INVÁLIDO!");
 				}
 			}
 		});
-		btnLogar.setBounds(506, 238, 89, 23);
+		btnLogar.setBounds(494, 228, 101, 37);
 		contentPane.add(btnLogar);
 
 		passwordField = new JPasswordField();

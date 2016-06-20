@@ -3,6 +3,8 @@ package negocio;
 import java.io.Serializable;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import classesBasicasPessoa.Administrador;
 import classesBasicasPessoa.Pessoa;
 import dados.IRepositorioAdmin;
@@ -22,14 +24,14 @@ public class CadastroAdmin implements ICadastroAdmin, Serializable {
 	public boolean cadastrar(Administrador a) {
 		boolean resposta = false;
 		if (a == null) {
-			System.out.println("PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
 		} else {
-			if (!this.existe(a.getLogin())) {
+			if (!(this.existe(a.getLogin()))) {
 				this.repositorio.cadastrar(a);
 
 				resposta = true;
 			} else {
-				System.out.println("ERRO! LOGIN JÁ CADASTRADO!");
+				JOptionPane.showMessageDialog(null, "ERRO! LOGIN JÁ CADASTRADO! (ADMINISTRADOR)");
 			}
 		}
 		return resposta;
@@ -47,17 +49,15 @@ public class CadastroAdmin implements ICadastroAdmin, Serializable {
 
 	@Override
 	public void remover(String login) {
-		Scanner cs = new Scanner(System.in);
 		boolean x = false;
 		while (x == false) {
-			System.out.println("DIGITE A SENHA DO USUARIO: ");
-			String senha = cs.nextLine();
+			String s = JOptionPane.showInputDialog(null, "DIGITE SUA SENHA: ");
 			Pessoa aux = (Pessoa) procurar(login);
-			if (senha == aux.getSenha()) {
+			if (s == aux.getSenha()) {
 				this.repositorio.remover(login);
 				x = true;
 			} else {
-				System.out.println("SENHA ERRADA, DIGITE NOVAMENTE");
+				JOptionPane.showMessageDialog(null, "SENHA ERRADA, DIGITE NOVAMENTE");
 			}
 		}
 
@@ -71,10 +71,10 @@ public class CadastroAdmin implements ICadastroAdmin, Serializable {
 		boolean logado = false;
 		if (repositorio.existe(login)) {
 			logado = true;
-			System.out.println("LOGIN REALIZADO COM SUCESSO");
+			JOptionPane.showMessageDialog(null,"LOGIN REALIZADO COM SUCESSO");
 			repositorio.procurar(login).toString();
 		} else {
-			System.out.println("LOGIN NÃO REALIZADO");
+			JOptionPane.showMessageDialog(null,"LOGIN NÃO REALIZADO");
 		}
 		return logado;
 	}

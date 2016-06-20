@@ -92,6 +92,7 @@ public class TelaCAdmin extends JFrame {
 		contentPane.add(senhaCUsuario);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setIcon(new ImageIcon("Imagens\\Sign.png"));
 		btnCadastrar.setBounds(745, 399, 116, 28);
 		contentPane.add(btnCadastrar);
 
@@ -157,7 +158,7 @@ public class TelaCAdmin extends JFrame {
 
 		JLabel lblLabelUsuario = new JLabel("New label");
 		lblLabelUsuario.setIcon(
-				new ImageIcon("C:\\Users\\Eduardo\\git\\Projeto-CineMars\\Cinemars\\Imagens\\TelaCUsuario1.jpg"));
+				new ImageIcon("Imagens\\TelaCUsuario1.jpg"));
 		lblLabelUsuario.setBounds(0, 0, 1019, 654);
 		contentPane.add(lblLabelUsuario);
 	}

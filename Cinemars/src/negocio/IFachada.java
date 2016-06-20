@@ -6,6 +6,7 @@ import classesBasicasCinema.Cinema;
 import classesBasicasCinema.Filme;
 import classesBasicasCinema.Ingresso;
 import classesBasicasPessoa.Administrador;
+import classesBasicasPessoa.Pessoa;
 import classesBasicasPessoa.Usuario;
 
 public interface IFachada {
@@ -32,7 +33,7 @@ public interface IFachada {
 
 	public abstract boolean cadastrarUsuario(Usuario u);
 	
-	public abstract Object checkType(String Login);
+	public abstract Pessoa checkType(String Login);
 
 	public abstract void salvarUsuario();
 

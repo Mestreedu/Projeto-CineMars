@@ -2,6 +2,8 @@ package negocio;
 
 import java.io.Serializable;
 
+import javax.swing.JOptionPane;
+
 import classesBasicasCinema.Ingresso;
 import dados.IRepositorioIngresso;
 import dados.RepositorioIngressosArray;
@@ -20,12 +22,12 @@ public class CadastroIngresso implements ICadastroIngresso, Serializable {
 	@Override
 	public void cadastrar(Ingresso i) {
 		if (i == null) {
-			System.out.println("PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
 		} else {
 			if (!this.existe(i.getCodigo())) {
 				this.repositorio.cadastrar(i);
 			} else {
-				System.out.println("ERRO! INGRESSO JÁ CADASTRADO!");
+				JOptionPane.showMessageDialog(null,"ERRO! INGRESSO JÁ CADASTRADO!");
 			}
 		}
 	}

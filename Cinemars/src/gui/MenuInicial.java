@@ -133,6 +133,7 @@ public class MenuInicial extends JFrame {
 		});
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setIcon(new ImageIcon("Imagens\\film.png"));
 		btnEntrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -143,12 +144,12 @@ public class MenuInicial extends JFrame {
 				telaLogin.setVisible(true);
 			}
 		});
-		btnEntrar.setBounds(494, 407, 89, 23);
+		btnEntrar.setBounds(494, 399, 102, 31);
 		contentPane.add(btnEntrar);
 		
 		JLabel usuarioImage = new JLabel("Usuario");
 		usuarioImage.setIcon(new ImageIcon("Imagens\\UserLogin1.png"));
-		usuarioImage.setBounds(505, 297, 118, 123);
+		usuarioImage.setBounds(505, 291, 118, 123);
 		contentPane.add(usuarioImage);
 		
 		

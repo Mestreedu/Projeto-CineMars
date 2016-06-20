@@ -26,14 +26,14 @@ public class CadastroUsuario implements ICadastroUsuario, Serializable {
 	public boolean cadastrar(Usuario u) {
 		boolean resposta = false;
 		if (u == null) {
-			System.out.println("PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
 		} else {
-			if (!this.existe(u.getLogin())) {
+			if (!(this.existe(u.getLogin()))) {
 				this.repositorio.cadastrar(u);
 				
 				resposta = true;
 			} else {
-				System.out.println("ERRO! LOGIN JÁ CADASTRADO!");
+				JOptionPane.showMessageDialog(null,"ERRO! LOGIN JÁ CADASTRADO! (USUARIO)");
 			}
 		}
 		return resposta;
@@ -96,10 +96,10 @@ public class CadastroUsuario implements ICadastroUsuario, Serializable {
 		boolean logado = false;
 		if (repositorio.existe(login)) {
 			logado = true;
-			System.out.println("LOGIN REALIZADO COM SUCESSO");
-			repositorio.procurar(login).toString();
+			JOptionPane.showMessageDialog(null, "LOGIN REALIZADO COM SUCESSO");
+			JOptionPane.showMessageDialog(null, repositorio.procurar(login).toString());
 		} else {
-			System.out.println("LOGIN NÃO REALIZADO");
+			JOptionPane.showMessageDialog(null, "LOGIN NÃO REALIZADO");
 		}
 		return logado;
 	}

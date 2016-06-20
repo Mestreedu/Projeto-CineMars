@@ -3,6 +3,8 @@ package negocio;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import classesBasicasCinema.Cinema;
 import dados.IRepositorioCinema;
 import dados.RepositorioCinemasArray;
@@ -24,12 +26,12 @@ public class CadastroCinema implements ICadastroCinema, Serializable {
 	@Override
 	public void cadastrar(Cinema c) {
 		if (c == null) {
-			System.out.println("PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
 		} else {
 			if (!this.existe(c.getNome(), c.getTelefone())) {
 				this.repositorio.cadastrar(c);
 			} else {
-				System.out.println("ERRO! CINEMA JÁ CADASTRADO!");
+				JOptionPane.showMessageDialog(null,"ERRO! CINEMA JÁ CADASTRADO!");
 			}
 		}
 	}

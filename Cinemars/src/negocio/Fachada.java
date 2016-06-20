@@ -9,6 +9,7 @@ import classesBasicasCinema.Cinema;
 import classesBasicasCinema.Filme;
 import classesBasicasCinema.Ingresso;
 import classesBasicasPessoa.Administrador;
+import classesBasicasPessoa.Pessoa;
 import classesBasicasPessoa.Usuario;
 
 public class Fachada implements IFachada, Serializable {
@@ -204,23 +205,22 @@ public class Fachada implements IFachada, Serializable {
 
 		return verificar;
 	}
-	
-	public Object checkType(String login){
-		Object o = null;
-		Usuario u = this.procurarUsuario(login);
-		Administrador adm = this.procurarAdmin(login);
-		
-		if (u != null) {
-			o = (Usuario) u;
+
+	public Pessoa checkType(String login) {
+		Pessoa p = (Pessoa) this.procurarUsuario(login);
+		if (p != null) {
+			JOptionPane.showMessageDialog(null, "BEM-VINDO USUÁRIO!");
+		} else {
+			p = (Pessoa) this.procurarAdmin(login);
+			if (p != null) {
+				JOptionPane.showMessageDialog(null, "BEM-VINDO ADMINISTRADOR!");
+			} else{
+				JOptionPane.showMessageDialog(null, "PESSOA NÃO ENCONTRADA!");
+			}
+
 		}
-		else if (adm != null){
-			o = (Administrador) adm;
-		} else{
-			JOptionPane.showMessageDialog(null, "PESSOA NAO ENCONTRADA!");
-		}
-		
-		
-		return o;
+
+		return p;
 	}
 
 	/*
