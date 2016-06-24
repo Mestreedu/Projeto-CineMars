@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -22,6 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import classesBasicasCinema.Filme;
 import negocio.Fachada;
 
 public class MenuInicial extends JFrame {
@@ -63,6 +62,7 @@ public class MenuInicial extends JFrame {
 	 */
 	public MenuInicial() {
 		fachada = new Fachada();
+		fachada.cadastrarFilme(new Filme("Vida e Obra de Dilma Rousseff", "Terror", "Luiz Inacio Lula da Silva", 169, 18));
 		fachada.salvarCinema();
 		fachada.salvarFilme();
 		fachada.salvarUsuario();

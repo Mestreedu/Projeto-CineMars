@@ -14,21 +14,40 @@ public class Filme implements Serializable{
 	private String diretor;
 	private String atores;
 	private String iD;
-	private int horario;
 	private int duracao;
 	private int classificacaoIndicativa;
-	private String[] comentarios;
+	
 
-	public Filme(String nome, String genero, String sinopse, String diretor, String atores, int horario, int duracao,
+	public Filme(String nome, String genero, String sinopse, String diretor, String atores, int duracao,
 			int cI) {
 		this.setAtores(atores);
 		this.setClassificacaoIndicativa(cI);
 		this.setDiretor(diretor);
 		this.setDuracao(duracao);
 		this.setGenero(genero);
-		this.setHorario(horario);
 		this.setNome(nome);
 		this.setSinopse(sinopse);
+		
+		Random rand = new Random();
+		for (int i = 0; i < 8; i++) {
+			int x = 33 + rand.nextInt(93);
+			if (i > 0) {
+				iD += Character.toString((char) x);
+			} else {
+				iD = Character.toString((char) x);
+			}
+		}
+		this.setID(iD);		
+	}
+	
+	public Filme(String nome, String genero, String diretor, int duracao,
+			int cI) {
+		this.setAtores(atores);
+		this.setClassificacaoIndicativa(cI);
+		this.setDiretor(diretor);
+		this.setDuracao(duracao);
+		this.setGenero(genero);
+		this.setNome(nome);
 		
 		Random rand = new Random();
 		for (int i = 0; i < 8; i++) {
@@ -70,13 +89,6 @@ public class Filme implements Serializable{
 		this.classificacaoIndicativa = classificacaoIndicativa;
 	}
 
-	public String[] getComentarios() {
-		return comentarios;
-	}
-
-	public void setComentarios(String[] comentarios) {
-		this.comentarios = comentarios;
-	}
 
 	public String getNome() {
 		return nome;
@@ -98,13 +110,6 @@ public class Filme implements Serializable{
 		return atores;
 	}
 
-	public int getHorario() {
-		return horario;
-	}
-
-	public void setHorario(int horario) {
-		this.horario = horario;
-	}
 
 	public int getDuracao() {
 		return duracao;

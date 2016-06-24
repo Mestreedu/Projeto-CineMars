@@ -82,7 +82,7 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 		this.salvar();
 	}
 
-	private int procurarIndice(String login) {
+	private int procurarIndiceLogin(String login) {
 		int indice = 0;
 		boolean found = false;
 		while (found == true && indice < this.next) {
@@ -95,9 +95,35 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 		return indice;
 	}
 
+	private int procurarIndiceSenha(String senha) {
+		int indice = 0;
+		boolean found = false;
+		while (found == true && indice < this.next) {
+			if (senha.equals(this.administradores.get(indice).getSenha())) {
+				found = true;
+			} else {
+				indice = indice + 1;
+			}
+		}
+		return indice;
+	}
 
-	public Administrador procurar(String login) {
-		int i = this.procurarIndice(login);
+	public Administrador procurarAdminLogin(String login) {
+		int i = this.procurarIndiceLogin(login);
+		Administrador saida = null;
+		if (i != this.next) {
+			saida = this.administradores.get(i);
+		} else {
+			JOptionPane.showMessageDialog(null, "O ADMINISTRADOR NÃO FOI ENCONTRADO!");
+		}
+
+		return saida;
+	}
+	
+	
+	
+	public Administrador procurarAdminSenha(String senha) {
+		int i = this.procurarIndiceSenha(senha);
 		Administrador saida = null;
 		if (i != this.next) {
 			saida = this.administradores.get(i);
@@ -108,8 +134,9 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 		return saida;
 	}
 
+
 	public void remover(String login) {
-		int i = this.procurarIndice(login);
+		int i = this.procurarIndiceLogin(login);
 		if (i != this.next) {
 			this.administradores.remove(i);
 			System.out.println("Administrador foi removido!");
@@ -123,7 +150,7 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 	@Override
 	public boolean existe(String login) {
 		boolean existe = false;
-		int i = this.procurarIndice(login);
+		int i = this.procurarIndiceLogin(login);
 		if (i != next) {
 			existe = true;
 			System.out.println("Administrador existe!");

@@ -52,12 +52,12 @@ public class Teste implements Serializable{
 								case 1:
 									System.out.println("Digite o número de cadeiras que deseja reservar: ");
 									int num = sc.nextInt();
-									sala.reservaEmGrupo(num);
+									
 									break;
 								case 2:
 									System.out.println("Digite o lugar que deseja reservar");
 									int numero = sc1.nextInt();
-									sala.reservaCadeira(numero);
+									
 									break;
 								case 3:
 									int e = 0;
@@ -136,7 +136,7 @@ public class Teste implements Serializable{
 				System.out.println("Digite sua senha: ");
 				String senha = sc1.nextLine();
 
-				Administrador adm = new Administrador(nome, email, login, senha);
+				Administrador adm = new Administrador(nome, email, login, senha, null);
 
 			}
 		}

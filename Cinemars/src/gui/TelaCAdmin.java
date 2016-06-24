@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import classesBasicasCinema.Cinema;
 import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
 
@@ -131,7 +133,7 @@ public class TelaCAdmin extends JFrame {
 									}
 								}
 								Administrador adm = new Administrador(textNome.getText(), textEmail.getText(),
-										textLogin.getText(), senha);
+										textLogin.getText(), senha, new ArrayList<Cinema>());
 								f.cadastrarAdmin(adm);
 								dispose();
 								TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();

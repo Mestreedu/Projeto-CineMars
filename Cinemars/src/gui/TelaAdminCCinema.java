@@ -1,40 +1,46 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.DropMode;
-import javax.swing.SwingConstants;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+
+import classesBasicasCinema.Cinema;
+import classesBasicasCinema.Sala;
+import classesBasicasCinema.Sessao;
+import classesBasicasPessoa.Administrador;
+import negocio.Fachada;
 
 public class TelaAdminCCinema extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textNomeCinema;
-	private JTextField txtEx;
+	private JTextField txtTel;
 	private JLabel lblQuantidadeDeSalas;
 	private JLabel lblescolhaDentreOs;
 	private JLabel lblColunaXFileira;
 	private JLabel lblPadres;
 	private JButton btnNewButton;
-
+	private Fachada fachada;
 	/**
 	 * Launch the application.
 	 */
@@ -65,6 +71,7 @@ public class TelaAdminCCinema extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaAdminCCinema() {
+		fachada = new Fachada();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
 		contentPane = new JPanel();
@@ -93,12 +100,12 @@ public class TelaAdminCCinema extends JFrame {
 		contentPane.add(textNomeCinema);
 		textNomeCinema.setColumns(10);
 		
-		txtEx = new JTextField();
-		txtEx.setText("Ex: 985122134");
-		txtEx.setColumns(10);
-		txtEx.setBackground(Color.LIGHT_GRAY);
-		txtEx.setBounds(115, 155, 242, 28);
-		contentPane.add(txtEx);
+		txtTel = new JTextField();
+		txtTel.setText("Ex: 985122134");
+		txtTel.setColumns(10);
+		txtTel.setBackground(Color.LIGHT_GRAY);
+		txtTel.setBounds(115, 155, 242, 28);
+		contentPane.add(txtTel);
 		
 		lblQuantidadeDeSalas = new JLabel("Quantidade de Salas:");
 		lblQuantidadeDeSalas.setForeground(Color.YELLOW);
@@ -161,6 +168,20 @@ public class TelaAdminCCinema extends JFrame {
 				default:
 				break;
 				}
+				int telefone = Integer.parseInt(txtTel.getText());
+				List<Sala> salasC;
+				List<Sessao> sessoesC;
+				int qtdSalas = (int) spinnerQtdSalas.getValue();
+				Cinema cine = new Cinema(textNomeCinema.getText(), telefone, salasC = new ArrayList<Sala>(qtdSalas), sessoesC = new ArrayList<Sessao>() );
+				JPasswordField password = new JPasswordField(10);
+				password.setEchoChar('*'); 
+				JLabel rotulo = new JLabel("Digite sua senha:");
+				JPanel entUsuario = new JPanel();
+				entUsuario.add(rotulo);
+				entUsuario.add(password);
+				JOptionPane.showMessageDialog(null, entUsuario, "Acesso restrito", JOptionPane.PLAIN_MESSAGE);
+				String senha = new String(password.getPassword());
+				fachada.procurarAdminSenha(senha).adicionarCinema(cine);;
 				TelaSala telaSala = new TelaSala(10, c, f);
 				telaSala.setLocationRelativeTo(null);
 				telaSala.setResizable(false);

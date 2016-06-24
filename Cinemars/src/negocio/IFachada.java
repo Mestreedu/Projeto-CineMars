@@ -51,7 +51,9 @@ public interface IFachada {
 
 	public boolean cadastrarAdmin(Administrador a);
 
-	public Administrador procurarAdmin(String login);
+	public Administrador procurarAdminLogin(String login);
+	
+	public Administrador procurarAdminSenha(String senha);
 
 	public boolean existeAdmin(String login);
 

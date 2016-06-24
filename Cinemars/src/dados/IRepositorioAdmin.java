@@ -11,7 +11,9 @@ public interface IRepositorioAdmin {
 
 	void cadastrar(Administrador a);
 
-	Administrador procurar(String login);
+	Administrador procurarAdminLogin(String login);
+	
+	Administrador procurarAdminSenha(String Senha);
 
 	void remover(String login);
 

@@ -1,6 +1,8 @@
 package classesBasicasCinema;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cinema implements Serializable {
 
@@ -10,13 +12,15 @@ public class Cinema implements Serializable {
 	private static final long serialVersionUID = -1661196384905790847L;
 	private String nome;
 	private int telefone;
-	private Sala[] salas;
-	private Sessao[] sessoes;
+	private List<Sala> salas;
+	private List<Sessao> sessoes;
 	
-	public Cinema(String nome, int telefone, Sala[] salas, Sessao[] sessoes){
-		this.setSessoes(sessoes);
+	public Cinema(String nome, int telefone, List<Sala> salas, List<Sessao> sessoes){
+		salas = new ArrayList<Sala>();
+		sessoes = new ArrayList<Sessao>();
+		this.salas = salas;
+		this.sessoes = sessoes;
 		this.setNome(nome);
-		this.setSalas(salas);
 		this.setTelefone(telefone);
 	}
 
@@ -46,11 +50,11 @@ public class Cinema implements Serializable {
 		
 	}
 
-	public Sala[] getSalas() {
+	public List<Sala> getSalas() {
 		return salas;
 	}
 
-	public void setSalas(Sala[] salas) {
+	public void setSalas(List<Sala> salas) {
 		if(salas == null){
 			// mensagem de erro
 		}else{
@@ -59,11 +63,11 @@ public class Cinema implements Serializable {
 		
 	}
 
-	public Sessao[] getSessoes() {
+	public List<Sessao> getSessoes() {
 		return sessoes;
 	}
 
-	public void setSessoes(Sessao[] sessoes) {
+	public void setSessoes(List<Sessao> sessoes) {
 		if(sessoes == null){
 			// mensagem de erro
 		}else{

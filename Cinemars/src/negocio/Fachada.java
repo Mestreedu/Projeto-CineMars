@@ -211,7 +211,7 @@ public class Fachada implements IFachada, Serializable {
 		if (p != null) {
 			JOptionPane.showMessageDialog(null, "BEM-VINDO USUÁRIO!");
 		} else {
-			p = (Pessoa) this.procurarAdmin(login);
+			p = (Pessoa) this.procurarAdminLogin(login);
 			if (p != null) {
 				JOptionPane.showMessageDialog(null, "BEM-VINDO ADMINISTRADOR!");
 			} else{
@@ -239,8 +239,12 @@ public class Fachada implements IFachada, Serializable {
 		return cadastroAdmin.cadastrar(a);
 	}
 
-	public Administrador procurarAdmin(String login) {
-		return cadastroAdmin.procurar(login);
+	public Administrador procurarAdminLogin(String login) {
+		return cadastroAdmin.procurarAdminLogin(login);
+	}
+	
+	public Administrador procurarAdminSenha(String senha) {
+		return cadastroAdmin.procurarAdminSenha(senha);
 	}
 
 	public boolean existeAdmin(String login) {

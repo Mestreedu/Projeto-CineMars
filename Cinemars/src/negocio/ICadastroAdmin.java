@@ -6,7 +6,9 @@ public interface ICadastroAdmin {
 
 	public abstract boolean cadastrar(Administrador a);
 
-	public abstract Administrador procurar(String login);
+	public abstract Administrador procurarAdminLogin(String login);
+	
+	public abstract Administrador procurarAdminSenha(String Senha);
 
 	public abstract boolean existe(String login);
 

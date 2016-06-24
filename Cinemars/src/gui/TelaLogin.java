@@ -96,7 +96,7 @@ public class TelaLogin extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				Pessoa p = f.checkType(textLogin.getText());
 				Usuario u = f.procurarUsuario(p.getLogin());
-				Administrador adm = f.procurarAdmin(p.getLogin());
+				Administrador adm = f.procurarAdminLogin(p.getLogin());
 				if (adm != null) {
 					dispose();
 					f.loginAdmin(p.getLogin(), p.getSenha());
