@@ -133,13 +133,13 @@ public class TelaCAdmin extends JFrame {
 									}
 								}
 								Administrador adm = new Administrador(textNome.getText(), textEmail.getText(),
-										textLogin.getText(), senha, new ArrayList<Cinema>());
+										textLogin.getText(), senha, null);
 								f.cadastrarAdmin(adm);
 								dispose();
-								TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
-								telaMenuAdmin.setVisible(true);
-								telaMenuAdmin.setLocationRelativeTo(null);
-								telaMenuAdmin.setResizable(false);
+								TelaAdminCCinema telaAdminCCinema = new TelaAdminCCinema();
+								telaAdminCCinema.setVisible(true);
+								telaAdminCCinema.setLocationRelativeTo(null);
+								telaAdminCCinema.setResizable(false);
 
 							} else {
 								JOptionPane.showMessageDialog(null, "ERRO, SENHA INVALIDA");

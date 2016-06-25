@@ -79,7 +79,7 @@ public class TelaMenuAdmin extends JFrame {
 		btnCadastrarCinema.setContentAreaFilled(false);
 		contentPane.add(btnCadastrarCinema);
 
-		JLabel lblCadastrarCinemaAdmin = new JLabel("Cadastrar Cinema");
+		JLabel lblCadastrarCinemaAdmin = new JLabel("Adicionar Sess\u00E3o");
 		lblCadastrarCinemaAdmin.setForeground(Color.LIGHT_GRAY);
 		lblCadastrarCinemaAdmin.setFont(new Font("OCR A Extended", Font.ITALIC, 15));
 		lblCadastrarCinemaAdmin.setBounds(639, 291, 156, 65);
@@ -126,13 +126,13 @@ public class TelaMenuAdmin extends JFrame {
 		updateCineButton.setFocusPainted(false);
 		contentPane.add(updateCineButton);
 
-		JLabel lblAtualizarCinemas = new JLabel("Atualizar Cinemas");
+		JLabel lblAtualizarCinemas = new JLabel("Atualizar Cinema");
 		lblAtualizarCinemas.setForeground(new Color(211, 211, 211));
 		lblAtualizarCinemas.setFont(new Font("OCR A Extended", Font.ITALIC, 15));
 		lblAtualizarCinemas.setBounds(639, 486, 156, 65);
 		contentPane.add(lblAtualizarCinemas);
 
-		JLabel lblListadeCinemasSeus = new JLabel("Seus Cinemas");
+		JLabel lblListadeCinemasSeus = new JLabel("Suas Sess\u00F5es");
 		lblListadeCinemasSeus.setIcon(new ImageIcon("Imagens//Movie-Studio-icon.png"));
 		lblListadeCinemasSeus.setForeground(new Color(255, 255, 0));
 		lblListadeCinemasSeus.setFont(new Font("OCR A Extended", Font.ITALIC, 18));

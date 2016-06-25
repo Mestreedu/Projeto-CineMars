@@ -8,19 +8,22 @@ import classesBasicasCinema.Cinema;
 
 public class Administrador extends Pessoa implements Serializable {
 	
-	private List<Cinema> cinemas;
+	private Cinema cinema;
 	
 	private static final long serialVersionUID = -8441289941209738977L;
 
-	public Administrador(String nome, String email, String login, String senha, List<Cinema> cinemas) {
+	public Administrador(String nome, String email, String login, String senha, Cinema cinema) {
 		super(nome, email, login, senha);
-		cinemas = new ArrayList<Cinema>();
-		this.cinemas = cinemas;
+		this.cinema = cinema;
+	}
+
+	public Cinema getCinema() {
+		return cinema;
+	}
+
+	public void setCinema(Cinema cinema) {
+		this.cinema = cinema;
 	}
 	
-	public void adicionarCinema(Cinema c){
-		if(c != null){
-			cinemas.add(c);
-		}
-	}
+	
 }

@@ -181,11 +181,12 @@ public class TelaAdminCCinema extends JFrame {
 				entUsuario.add(password);
 				JOptionPane.showMessageDialog(null, entUsuario, "Acesso restrito", JOptionPane.PLAIN_MESSAGE);
 				String senha = new String(password.getPassword());
-				fachada.procurarAdminSenha(senha).adicionarCinema(cine);;
-				TelaSala telaSala = new TelaSala(10, c, f);
-				telaSala.setLocationRelativeTo(null);
-				telaSala.setResizable(false);
-				telaSala.setVisible(true);
+				fachada.procurarAdminSenha(senha).setCinema(cine);;
+				TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
+				telaMenuAdmin.setLocationRelativeTo(null);
+				telaMenuAdmin.setResizable(false);
+				telaMenuAdmin.setVisible(true);
+			
 				
 			}
 		});

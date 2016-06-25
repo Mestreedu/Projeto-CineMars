@@ -16,10 +16,7 @@ public class Sala {
         this.linha = linha;
         this.numero = numero;
  
-        telaSala = new TelaSala(numero, linha, coluna);
-        telaSala.setLocationRelativeTo(null);
-        telaSala.setResizable(false);
-        telaSala.setVisible(false);
+        
     }
      
    public void turnSalaTrue(){
