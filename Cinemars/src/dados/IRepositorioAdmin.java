@@ -12,11 +12,11 @@ public interface IRepositorioAdmin {
 	void cadastrar(Administrador a);
 
 	Administrador procurarAdminLogin(String login);
-	
+
 	Administrador procurarAdminSenha(String Senha);
 
 	void remover(String login);
 
 	boolean existe(String login);
-	
+
 }

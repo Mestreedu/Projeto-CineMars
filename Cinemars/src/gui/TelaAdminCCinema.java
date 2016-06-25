@@ -27,8 +27,8 @@ import javax.swing.border.EmptyBorder;
 import classesBasicasCinema.Cinema;
 import classesBasicasCinema.Sala;
 import classesBasicasCinema.Sessao;
-import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
+import negocio.IFachada;
 
 public class TelaAdminCCinema extends JFrame {
 
@@ -71,7 +71,7 @@ public class TelaAdminCCinema extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaAdminCCinema() {
-		fachada = new Fachada();
+		IFachada fachada = Fachada.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
 		contentPane = new JPanel();
@@ -93,7 +93,7 @@ public class TelaAdminCCinema extends JFrame {
 		contentPane.add(lblTelefone);
 		
 		textNomeCinema = new JTextField();
-		textNomeCinema.setText("Ex: Jorge Sampaoli");
+		textNomeCinema.setText("Ex: UCI Recife");
 		textNomeCinema.setToolTipText("");
 		textNomeCinema.setBackground(Color.LIGHT_GRAY);
 		textNomeCinema.setBounds(115, 117, 242, 28);

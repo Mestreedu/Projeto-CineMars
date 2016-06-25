@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,9 +17,9 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
-import classesBasicasCinema.Cinema;
 import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
+import negocio.IFachada;
 
 public class TelaCAdmin extends JFrame {
 
@@ -31,7 +30,6 @@ public class TelaCAdmin extends JFrame {
 	private JTextField textLogin;
 	private JLabel senhaCUsuario;
 	private JPasswordField passwordField;
-	private Fachada f;
 	private String senha;
 
 	/**
@@ -64,7 +62,7 @@ public class TelaCAdmin extends JFrame {
 	 */
 	public TelaCAdmin() {
 		setResizable(false);
-		f = new Fachada();
+		IFachada f = Fachada.getInstance();
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import classesBasicasCinema.Cinema;
 
 public class RepositorioCinemasArray implements IRepositorioCinema, Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -26,7 +26,6 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 		this.next = 0;
 	}
 
-	
 	public static synchronized IRepositorioCinema getInstance() {
 		if (instanceCine == null) {
 			if (ler() == null) {
@@ -37,7 +36,7 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 		}
 		return instanceCine;
 	}
-	
+
 	public void salvar() {
 		try {
 			File f = new File("Cinemas\\RepositorioCinemasArray.db");
@@ -70,60 +69,55 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 		return repo;
 	}
 
-
 	public void cadastrar(Cinema c) {
-		c = this.cinemas.get(this.next);
-		if (c != null && c.getNome().equals(this.cinemas.get(this.next).getNome())
-				&& c.getTelefone() == this.cinemas.get(this.next).getTelefone()) {
+		if (c != null) {
+			cinemas.add(c);
 			this.next = next + 1;
-			if (this.next == this.cinemas.size()) {
-
-			}
 			System.out.println("Cinema Cadastrado!");
 		}
-
+		this.salvar();
 	}
 
 	private ArrayList<Integer> procurarIndice(String nome) {
-		int aux = 0;
-		ArrayList<Integer> indice = new ArrayList<Integer>(aux);
+		ArrayList<Integer> indice = new ArrayList<Integer>();
 
 		for (int i = 0; i < cinemas.size(); i++) {
-			if (nome.equals(this.cinemas.get(i).getNome())) {
-				indice.add(aux, cinemas.indexOf(cinemas.get(i)));
-				aux++;
+			if ((this.cinemas.get(i).getNome()).contains(nome)) {
+				indice.add(cinemas.indexOf(cinemas.get(i)));
 			}
 		}
 		return indice;
 	}
 
-
 	public ArrayList<Cinema> procurar(String nome) {
 		ArrayList<Integer> indices = this.procurarIndice(nome);
 		ArrayList<Cinema> saida = new ArrayList<Cinema>();
-		for (int i = 0; i < indices.size(); i++) {
-			if (i != this.next) {
+		if (indices != null) {
+			for (int i = 0; i < indices.size(); i++) {
 				saida.add(this.cinemas.get(indices.get(i)));
-			} else {
-				System.out.println("Cinema não encontrado!");
 			}
+		} else {
+			System.out.println("Nenhum cinema com este nome foi encontrado.");
 		}
 		return saida;
 	}
 
 	public void remover(String nome, int telefone) {
 		ArrayList<Cinema> cines = this.procurar(nome);
-		for (int i = 0; i < cines.size(); i++) {
-			if (cines.get(i).getTelefone() == telefone) {
-				this.cinemas.remove(this.cinemas.indexOf(cines.get(i)));
-				System.out.println("Cinema foi removido!");
-			} else {
-				System.out.println("Houve um problema! Cinema não pode ser removido.");
+		if (this.existe(nome, telefone)) {
+			for (int i = 0; i < cines.size(); i++) {
+				if (cines.get(i).getTelefone() == telefone) {
+					this.cinemas.remove(this.cinemas.indexOf(cines.get(i)));
+					System.out.println("Cinema foi removido!");
+				} else {
+					System.out.println("Houve um problema! Cinema não pode ser removido.");
+				}
 			}
+		} else {
+			System.out.println("O parametro informado deve conter erros.");
 		}
 	}
 
-	
 	public boolean existe(String nome, int telefone) {
 		boolean existe = false;
 		ArrayList<Cinema> cines = this.procurar(nome);

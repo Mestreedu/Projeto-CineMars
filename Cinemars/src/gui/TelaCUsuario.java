@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 import classesBasicasPessoa.Usuario;
 import negocio.Fachada;
+import negocio.IFachada;
 
 public class TelaCUsuario extends JFrame {
 
@@ -39,7 +40,6 @@ public class TelaCUsuario extends JFrame {
 	private JPasswordField passwordField;
 	private JLabel nCartaoCUsuario;
 	private JTextField textCartao;
-	private Fachada f;
 	private long nCartao;
 	private String senha;
 	private long cpf;
@@ -73,7 +73,7 @@ public class TelaCUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCUsuario() {
-		f = new Fachada();
+		IFachada f = Fachada.getInstance();
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1015, 682);

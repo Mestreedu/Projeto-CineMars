@@ -22,6 +22,8 @@ import classesBasicasPessoa.Administrador;
 import classesBasicasPessoa.Pessoa;
 import classesBasicasPessoa.Usuario;
 import negocio.Fachada;
+import negocio.IFachada;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -59,7 +61,7 @@ public class TelaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaLogin() {
-		Fachada f = new Fachada();
+		IFachada f = Fachada.getInstance();
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 680, 420);

@@ -71,10 +71,9 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 		return repo;
 	}
 
-
 	public void cadastrar(Administrador a) {
 		if (a != null) {
-			this.administradores.add(next, a);
+			administradores.add(a);
 			this.next = next + 1;
 
 			JOptionPane.showMessageDialog(null, "Administrador Cadastrado!");
@@ -85,7 +84,7 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 	private int procurarIndiceLogin(String login) {
 		int indice = 0;
 		boolean found = false;
-		while (found == true && indice < this.next) {
+		while (found != true && indice < this.next) {
 			if (login.equals(this.administradores.get(indice).getLogin())) {
 				found = true;
 			} else {
@@ -98,7 +97,7 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 	private int procurarIndiceSenha(String senha) {
 		int indice = 0;
 		boolean found = false;
-		while (found == true && indice < this.next) {
+		while (found != true && indice < this.next) {
 			if (senha.equals(this.administradores.get(indice).getSenha())) {
 				found = true;
 			} else {
@@ -119,9 +118,7 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 
 		return saida;
 	}
-	
-	
-	
+
 	public Administrador procurarAdminSenha(String senha) {
 		int i = this.procurarIndiceSenha(senha);
 		Administrador saida = null;
@@ -134,7 +131,6 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 		return saida;
 	}
 
-
 	public void remover(String login) {
 		int i = this.procurarIndiceLogin(login);
 		if (i != this.next) {
@@ -145,7 +141,6 @@ public class RepositorioAdminArray implements IRepositorioAdmin, Serializable {
 		}
 
 	}
-
 
 	@Override
 	public boolean existe(String login) {

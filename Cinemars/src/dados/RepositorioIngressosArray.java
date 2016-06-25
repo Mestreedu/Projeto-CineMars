@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import classesBasicasCinema.Filme;
 import classesBasicasCinema.Ingresso;
 
-public class RepositorioIngressosArray implements IRepositorioIngresso, Serializable{
+public class RepositorioIngressosArray implements IRepositorioIngresso, Serializable {
 	/**
 	 * 
 	 */
@@ -36,7 +36,7 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 		}
 		return instanceIngresso;
 	}
-	
+
 	public void salvar() {
 		try {
 			File f = new File("Ingressos\\RepositorioIngressosArray.db");
@@ -70,12 +70,9 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 	}
 
 	public void cadastrar(Ingresso i) {
-		i = this.ingressos.get(this.next);
-		if (i != null && i.getCodigo() == (this.ingressos.get(this.next).getCodigo())) {
+		if (i != null) {
+			ingressos.add(i);
 			this.next = next + 1;
-			if (this.next == this.ingressos.size()) {
-
-			}
 			System.out.println("Ingresso Cadastrado!");
 		}
 
@@ -107,8 +104,8 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 	}
 
 	public void remover(int codigo) {
-		int i = this.procurarIndice(codigo);
-		if (i != this.next) {
+		if (existe(codigo)) {
+			Ingresso i = procurar(codigo);
 			this.ingressos.remove(i);
 			System.out.println("Ingresso foi removido!");
 		} else {
@@ -119,13 +116,13 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 
 	public boolean existe(int codigo) {
 		boolean existe = false;
-		int i = this.procurarIndice(codigo);
-		if (i != next) {
+		Ingresso i = this.procurar(codigo);
+		if (i != null) {
 			existe = true;
 			System.out.println("Ingresso existe!");
 		} else {
 			System.out.println("Ingresso não existe!");
 		}
 		return existe;
-}
+	}
 }

@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import classesBasicasCinema.Filme;
 import negocio.Fachada;
+import negocio.IFachada;
 
 public class MenuInicial extends JFrame {
 
@@ -61,7 +62,7 @@ public class MenuInicial extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuInicial() {
-		fachada = new Fachada();
+		IFachada fachada = Fachada.getInstance();
 		fachada.cadastrarFilme(new Filme("Vida e Obra de Dilma Rousseff", "Terror", "Luiz Inacio Lula da Silva", 169, 18));
 		fachada.salvarCinema();
 		fachada.salvarFilme();

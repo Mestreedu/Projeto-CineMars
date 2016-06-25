@@ -12,8 +12,7 @@ import javax.swing.JOptionPane;
 
 import classesBasicasPessoa.Usuario;
 
-public class RepositorioUsuariosArray implements IRepositorioUsuario,
-		Serializable {
+public class RepositorioUsuariosArray implements IRepositorioUsuario, Serializable {
 
 	/**
 	 * 
@@ -90,10 +89,10 @@ public class RepositorioUsuariosArray implements IRepositorioUsuario,
 
 	public void cadastrar(Usuario u) {
 		if (u != null) {
-			this.usuarios.add(next, u);
+			usuarios.add(u);
 			this.next = next + 1;
 
-			JOptionPane.showMessageDialog(null,"Usuário Cadastrado!");
+			JOptionPane.showMessageDialog(null, "Usuário Cadastrado!");
 		}
 		this.salvar();
 	}
@@ -101,7 +100,7 @@ public class RepositorioUsuariosArray implements IRepositorioUsuario,
 	private int procurarIndice(String login) {
 		int indice = 0;
 		boolean found = false;
-		while (found == true && indice < this.next) {
+		while (found != true && indice < this.next) {
 			if (login.equals(this.usuarios.get(indice).getLogin())) {
 				found = true;
 			} else {
@@ -128,21 +127,19 @@ public class RepositorioUsuariosArray implements IRepositorioUsuario,
 		if (i != this.next) {
 			saida = this.usuarios.get(i);
 		} else {
-			JOptionPane
-					.showMessageDialog(null, "O USUARIO NÃO FOI ENCONTRADO!");
+			JOptionPane.showMessageDialog(null, "O USUARIO NÃO FOI ENCONTRADO!");
 		}
 
 		return saida;
 	}
 
 	public void remover(String login) {
-		int i = this.procurarIndice(login);
-		if (i != this.next) {
-			this.usuarios.remove(i);
+		if (existe(login)) {
+			Usuario u = procurar(login);
+			this.usuarios.remove(u);
 			System.out.println("Usuario foi removido!");
 		} else {
-			System.out
-					.println("Houve um problema! Usuario não pode ser removido.");
+			System.out.println("Houve um problema! Usuario não pode ser removido.");
 		}
 
 	}
@@ -161,8 +158,8 @@ public class RepositorioUsuariosArray implements IRepositorioUsuario,
 	@Override
 	public boolean existe(String login) {
 		boolean existe = false;
-		int i = this.procurarIndice(login);
-		if (i != next) {
+		Usuario u = this.procurar(login);
+		if (u != null) {
 			existe = true;
 			System.out.println("Usuario existe!");
 		} else {

@@ -35,7 +35,7 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 		}
 		return instanceFilm;
 	}
-	
+
 	public void salvar() {
 		try {
 			File f = new File("Filmes\\RepositorioFilmesArray.db");
@@ -69,15 +69,12 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 	}
 
 	public void cadastrar(Filme f) {
-		f = this.filmes.get(this.next);
-		if (f != null && f.getNome().equals(this.filmes.get(this.next).getNome())) {
+		if (f != null) {
+			this.filmes.add(f);
 			this.next = next + 1;
-			if (this.next == this.filmes.size()) {
-
-			}
 			System.out.println("Filme Cadastrado!");
 		}
-
+		this.salvar();
 	}
 
 	private int procurarIndice(String ID) {
@@ -106,20 +103,20 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 	}
 
 	public void remover(String ID) {
-		int i = this.procurarIndice(ID);
-		if (i != this.next) {
-			this.filmes.remove(i);
+		if (existe(ID)) {
+			Filme f = procurar(ID);
+			this.filmes.remove(f);
 			System.out.println("Filme foi removido!");
 		} else {
 			System.out.println("Houve um problema! Filme não pode ser removido.");
 		}
-
+		this.salvar();
 	}
 
 	public boolean existe(String ID) {
 		boolean existe = false;
-		int i = this.procurarIndice(ID);
-		if (i != next) {
+		Filme f = procurar(ID);
+		if (f != null) {
 			existe = true;
 			System.out.println("Filme existe!");
 		} else {

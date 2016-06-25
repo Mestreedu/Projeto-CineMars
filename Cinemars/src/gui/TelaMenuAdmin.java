@@ -21,6 +21,9 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import negocio.Fachada;
+import negocio.IFachada;
+
 public class TelaMenuAdmin extends JFrame {
 
 	/**
@@ -57,6 +60,7 @@ public class TelaMenuAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaMenuAdmin() {
+		IFachada f = Fachada.getInstance();
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
