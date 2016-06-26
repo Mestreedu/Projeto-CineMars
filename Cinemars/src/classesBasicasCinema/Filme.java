@@ -1,5 +1,6 @@
 package classesBasicasCinema;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -14,12 +15,13 @@ public class Filme implements Serializable{
 	private String diretor;
 	private String atores;
 	private String iD;
+	private File poster;
 	private int duracao;
 	private int classificacaoIndicativa;
 	
 
 	public Filme(String nome, String genero, String sinopse, String diretor, String atores, int duracao,
-			int cI) {
+			int cI, File poster) {
 		this.setAtores(atores);
 		this.setClassificacaoIndicativa(cI);
 		this.setDiretor(diretor);
@@ -27,6 +29,7 @@ public class Filme implements Serializable{
 		this.setGenero(genero);
 		this.setNome(nome);
 		this.setSinopse(sinopse);
+		this.setPoster(poster);
 		
 		Random rand = new Random();
 		for (int i = 0; i < 8; i++) {
@@ -126,6 +129,14 @@ public class Filme implements Serializable{
 
 	public void setID(String iD) {
 		this.iD = iD;
+	}
+
+	public File getPoster() {
+		return poster;
+	}
+
+	public void setPoster(File poster) {
+		this.poster = poster;
 	}
 
 }

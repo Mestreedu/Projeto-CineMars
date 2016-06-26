@@ -19,6 +19,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import classesBasicasCinema.Sala;
+
 public class TelaSala extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +31,7 @@ public class TelaSala extends JFrame {
 	int colunas;
 	int fileiras;
 	int numeroDaSala;
+	private Sala sala; 
 	char letra;
 	private JLabel lblFundoSala;
 	private String cadeiras[][];
@@ -62,6 +65,11 @@ public class TelaSala extends JFrame {
 		this.telaSalaC(numeroSala, col, fil);
 	}
 
+	public TelaSala(Sala s){
+		this.telaSalaC(s.getNumero(), s.getColuna(), s.getLinha());
+		this.sala = s;
+	}
+	
 	public TelaSala() {
 		this.telaSalaC(10, 10, 10);
 	}
@@ -168,7 +176,7 @@ public class TelaSala extends JFrame {
 		String msg = "LUGAR INDISPONÍVEL!\n";
 		AbstractButton tecla = (AbstractButton) poltronasArrayButton[x][y];
 		msg = "LUGAR RESERVADO COM SUCESSO - CADEIRA: " + tecla.getText();
-		cadeiras[x][y] = "X";
+		tecla.setText("X");
 		System.out.println(msg);
 
 		return msg;
@@ -177,8 +185,10 @@ public class TelaSala extends JFrame {
 	public void reservar() {
 		for (int i = 0; i < this.getColunas(); i++) {
 			for (int j = 0; j < this.getFileiras(); j++) {
-				if (poltronasArrayButton[i][j].isSelected()) {
-					poltronasArrayButton[i][j].setBackground(Color.RED);;
+				AbstractButton tecla = (AbstractButton) poltronasArrayButton[i][j];
+				if (tecla.isSelected()) {
+					tecla.setEnabled(false);
+					tecla.setBackground(Color.RED);;
 					this.reservaCadeira(i, j);
 				}
 			}
