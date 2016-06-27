@@ -2,6 +2,7 @@ package negocio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -84,6 +85,10 @@ public class Fachada implements IFachada, Serializable {
 		cadastroCinema.remover(nome, telefone);
 	}
 
+	public List<String> retornaTudo() {
+		return this.cadastroCinema.retornaTudo();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -114,8 +119,13 @@ public class Fachada implements IFachada, Serializable {
 	 * @see negocio.IFachada#procurarFilme(java.lang.String)
 	 */
 	@Override
-	public Filme procurarFilme(String iD) {
-		return cadastroFilme.procurar(iD);
+	public Filme procurarFilmeID(String iD) {
+		return cadastroFilme.procurarID(iD);
+	}
+
+	@Override
+	public Filme procurarFilmeNome(String nome) {
+		return cadastroFilme.procurarNome(nome);
 	}
 
 	/*
@@ -214,7 +224,7 @@ public class Fachada implements IFachada, Serializable {
 			p = (Pessoa) this.procurarAdminLogin(login);
 			if (p != null) {
 				JOptionPane.showMessageDialog(null, "BEM-VINDO ADMINISTRADOR!");
-			} else{
+			} else {
 				JOptionPane.showMessageDialog(null, "PESSOA NÃO ENCONTRADA!");
 			}
 
@@ -242,7 +252,7 @@ public class Fachada implements IFachada, Serializable {
 	public Administrador procurarAdminLogin(String login) {
 		return cadastroAdmin.procurarAdminLogin(login);
 	}
-	
+
 	public Administrador procurarAdminSenha(String senha) {
 		return cadastroAdmin.procurarAdminSenha(senha);
 	}

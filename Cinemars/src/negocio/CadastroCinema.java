@@ -2,6 +2,7 @@ package negocio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -63,6 +64,10 @@ public class CadastroCinema implements ICadastroCinema, Serializable {
 	@Override
 	public void remover(String nome, int telefone) {
 		this.repositorio.remover(nome, telefone);
+	}
+	
+	public List<String> retornaTudo(){
+		return this.repositorio.retornaTudo();
 	}
 
 }

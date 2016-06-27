@@ -48,10 +48,14 @@ public class CadastroFilme implements ICadastroFilme, Serializable{
 	 * @see negocio.ICadastroFilme#procurar(java.lang.String)
 	 */
 	@Override
-	public Filme procurar(String iD) {
-		return this.repositorio.procurar(iD);
+	public Filme procurarID(String iD) {
+		return this.repositorio.procurarID(iD);
 	}
 
+	@Override
+	public Filme procurarNome(String nome) {
+		return this.repositorio.procurarNome(nome);
+	}
 	
 	public void salvar() {
 		repositorio.salvar();

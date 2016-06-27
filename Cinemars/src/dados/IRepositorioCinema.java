@@ -1,6 +1,7 @@
 package dados;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import classesBasicasCinema.Cinema;
 
@@ -16,4 +17,5 @@ public interface IRepositorioCinema {
 
 	boolean existe(String nome, int telefone);
 
+	public List<String> retornaTudo();
 }

@@ -8,7 +8,9 @@ public interface IRepositorioFilme {
 
 	void cadastrar(Filme f);
 
-	Filme procurar(String ID);
+	Filme procurarID(String ID);
+
+	Filme procurarNome(String nome);
 
 	void remover(String ID);
 

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,14 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import classesBasicasCinema.Filme;
-import javax.swing.JScrollBar;
-import javax.swing.SwingConstants;
-import javax.swing.JEditorPane;
-import javax.swing.JTextPane;
-import java.awt.Font;
+import negocio.Fachada;
+import negocio.IFachada;
 
 public class TelaFilme extends JFrame {
 
@@ -43,6 +43,10 @@ public class TelaFilme extends JFrame {
 		});
 	}
 
+	public TelaFilme(String nome){
+		IFachada f = Fachada.getInstance();
+		TelaFilme filme = new TelaFilme(f.procurarFilmeNome(nome));
+	}
 	/**
 	 * Create the frame.
 	 */

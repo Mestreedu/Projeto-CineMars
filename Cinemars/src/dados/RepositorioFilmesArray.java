@@ -77,7 +77,7 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 		this.salvar();
 	}
 
-	private int procurarIndice(String ID) {
+	private int procurarIndiceID(String ID) {
 		int indice = 0;
 		boolean found = false;
 		while (found != true && indice < this.next) {
@@ -89,9 +89,34 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 		}
 		return indice;
 	}
+	
+	private int procurarIndiceNome(String nome) {
+		int indice = 0;
+		boolean found = false;
+		while (found != true && indice < this.next) {
+			if (nome == this.filmes.get(indice).getNome()) {
+				found = true;
+			} else {
+				indice = indice + 1;
+			}
+		}
+		return indice;
+	}
 
-	public Filme procurar(String ID) {
-		int i = this.procurarIndice(ID);
+	public Filme procurarID(String ID) {
+		int i = this.procurarIndiceID(ID);
+		Filme saida = null;
+		if (i != this.next) {
+			saida = this.filmes.get(i);
+		} else {
+			System.out.println("Filme não encontrado!");
+		}
+
+		return saida;
+	}
+	
+	public Filme procurarNome(String nome) {
+		int i = this.procurarIndiceNome(nome);
 		Filme saida = null;
 		if (i != this.next) {
 			saida = this.filmes.get(i);
@@ -104,7 +129,7 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 
 	public void remover(String ID) {
 		if (existe(ID)) {
-			Filme f = procurar(ID);
+			Filme f = procurarID(ID);
 			this.filmes.remove(f);
 			System.out.println("Filme foi removido!");
 		} else {
@@ -115,7 +140,7 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 
 	public boolean existe(String ID) {
 		boolean existe = false;
-		Filme f = procurar(ID);
+		Filme f = procurarID(ID);
 		if (f != null) {
 			existe = true;
 			System.out.println("Filme existe!");

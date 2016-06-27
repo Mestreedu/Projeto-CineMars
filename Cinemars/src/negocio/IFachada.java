@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import classesBasicasCinema.Cinema;
 import classesBasicasCinema.Filme;
@@ -15,24 +16,28 @@ public interface IFachada {
 
 	public abstract void salvarCinema();
 
-
 	public abstract boolean existeCinema(String nome, int telefone);
 
 	public abstract ArrayList<Cinema> procurarCinema(String nome);
 
 	public abstract void removerCinema(String nome, int telefone);
 
+	public List<String> retornaTudo();
+
 	public abstract void cadastrarFilme(Filme f);
 
 	public abstract void salvarFilme();
+
 	public abstract boolean existeFilme(String iD);
 
-	public abstract Filme procurarFilme(String iD);
+	public abstract Filme procurarFilmeID(String iD);
+
+	public abstract Filme procurarFilmeNome(String iD);
 
 	public abstract void removerFilme(String iD);
 
 	public abstract boolean cadastrarUsuario(Usuario u);
-	
+
 	public abstract Pessoa checkType(String Login);
 
 	public abstract void salvarUsuario();
@@ -52,7 +57,7 @@ public interface IFachada {
 	public boolean cadastrarAdmin(Administrador a);
 
 	public Administrador procurarAdminLogin(String login);
-	
+
 	public Administrador procurarAdminSenha(String senha);
 
 	public boolean existeAdmin(String login);

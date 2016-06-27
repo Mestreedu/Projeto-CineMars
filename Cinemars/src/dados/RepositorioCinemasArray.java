@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import classesBasicasCinema.Cinema;
 
@@ -130,6 +131,13 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 			}
 		}
 		return existe;
-
+	}
+	
+	public List<String> retornaTudo(){
+		List<String> lista = new ArrayList<String>();
+		for(Cinema c : cinemas){
+			lista.add(c.getNome());
+		}
+		return lista;
 	}
 }
