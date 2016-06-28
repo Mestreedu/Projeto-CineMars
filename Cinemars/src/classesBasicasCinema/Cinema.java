@@ -3,6 +3,7 @@ package classesBasicasCinema;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class Cinema implements Serializable {
 
@@ -14,8 +15,8 @@ public class Cinema implements Serializable {
 	private int telefone;
 	private List<Sala> salas;
 	private List<Sessao> sessoes;
-	
-	public Cinema(String nome, int telefone, List<Sala> salas, List<Sessao> sessoes){
+
+	public Cinema(String nome, int telefone, List<Sala> salas, List<Sessao> sessoes) {
 		salas = new ArrayList<Sala>();
 		sessoes = new ArrayList<Sessao>();
 		this.salas = salas;
@@ -27,13 +28,12 @@ public class Cinema implements Serializable {
 	public String getNome() {
 		return nome;
 	}
- 
-	
+
 	public void setNome(String nome) {
-		if(nome == null){
+		if (nome == null) {
 			// mensagem de erro
-		}else{
-			this.nome = nome;	
+		} else {
+			this.nome = nome;
 		}
 	}
 
@@ -42,12 +42,12 @@ public class Cinema implements Serializable {
 	}
 
 	public void setTelefone(int telefone) {
-		if(telefone <= 9999999 || telefone > 99999999){
+		if (telefone <= 9999999 || telefone > 99999999) {
 			// mensagem de erro
-		}else{
-			this.telefone = telefone;	
+		} else {
+			this.telefone = telefone;
 		}
-		
+
 	}
 
 	public List<Sala> getSalas() {
@@ -55,28 +55,35 @@ public class Cinema implements Serializable {
 	}
 
 	public void setSalas(List<Sala> salas) {
-		if(salas == null){
+		if (salas == null) {
 			// mensagem de erro
-		}else{
-			this.salas = salas;	
+		} else {
+			this.salas = salas;
 		}
-		
+
 	}
 
 	public List<Sessao> getSessoes() {
 		return sessoes;
 	}
 
-	public void setSessoes(List<Sessao> sessoes) {
-		if(sessoes == null){
-			// mensagem de erro
-		}else{
-			this.sessoes = sessoes;	
+	public String[] getNomeSessoes() {
+		String[] nomeSessoes = new String[50];
+
+		for (int i = 0; i < sessoes.size(); i++) {
+			nomeSessoes[i] = getSessoes().get(i).toString();
 		}
-		
+
+		return nomeSessoes;
 	}
-	
-	
-	
-	
+
+	public void setSessoes(List<Sessao> sessoes) {
+		if (sessoes == null) {
+
+		} else {
+			this.sessoes = sessoes;
+		}
+
+	}
+
 }

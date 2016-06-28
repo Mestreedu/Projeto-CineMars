@@ -35,6 +35,14 @@ public class Sessao {
 		return hora;
 	}
 
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
 	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
@@ -43,4 +51,8 @@ public class Sessao {
 		this.hora = hora;
 	}
 
+	public String toString() {
+		return "Filme: " + getFilme().getNome() + " | Sala: " + getSala().getNumero() + " | Data: "
+				+ getData().toString() + " | Hora: " + getHora().toString();
+	}
 }

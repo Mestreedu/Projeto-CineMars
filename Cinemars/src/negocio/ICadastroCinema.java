@@ -11,12 +11,12 @@ public interface ICadastroCinema {
 
 	public abstract boolean existe(String nome, int telefone);
 
-	public abstract ArrayList<Cinema> procurar(String nome);
+	public abstract Cinema procurar(String nome);
 
 	public abstract void remover(String nome, int telefone);
 
 	public abstract void salvar();
 
-	public List<String> retornaTudo();
+	public String[] retornaTudo();
 
 }

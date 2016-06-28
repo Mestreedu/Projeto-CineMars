@@ -18,11 +18,11 @@ public interface IFachada {
 
 	public abstract boolean existeCinema(String nome, int telefone);
 
-	public abstract ArrayList<Cinema> procurarCinema(String nome);
+	public abstract Cinema procurarCinema(String nome);
 
 	public abstract void removerCinema(String nome, int telefone);
 
-	public List<String> retornaTudo();
+	public String[] retornaTudo();
 
 	public abstract void cadastrarFilme(Filme f);
 

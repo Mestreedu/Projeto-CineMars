@@ -10,7 +10,12 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
@@ -31,6 +36,7 @@ import classesBasicasCinema.Sala;
 import classesBasicasCinema.Sessao;
 import negocio.Fachada;
 import negocio.IFachada;
+import javax.swing.ListSelectionModel;
 
 public class TelaMenuUsuario extends JFrame {
 
@@ -61,11 +67,70 @@ public class TelaMenuUsuario extends JFrame {
 		});
 	}
 
+	class SortedListModel extends AbstractListModel {
+		SortedSet<Object> model;
+
+		public SortedListModel() {
+			model = new TreeSet<Object>();
+		}
+
+		public int getSize() {
+			return model.size();
+		}
+
+		public Object getElementAt(int index) {
+			return model.toArray()[index];
+		}
+
+		public void add(Object element) {
+			if (model.add(element)) {
+				fireContentsChanged(this, 0, getSize());
+			}
+		}
+
+		public void addAll(Object elements[]) {
+			Collection<Object> c = Arrays.asList(elements);
+			model.addAll(c);
+			fireContentsChanged(this, 0, getSize());
+		}
+
+		public void clear() {
+			model.clear();
+			fireContentsChanged(this, 0, getSize());
+		}
+
+		public boolean contains(Object element) {
+			return model.contains(element);
+		}
+
+		public Object firstElement() {
+			return model.first();
+		}
+
+		public Iterator iterator() {
+			return model.iterator();
+		}
+
+		public Object lastElement() {
+			return model.last();
+		}
+
+		public boolean removeElement(Object element) {
+			boolean removed = model.remove(element);
+			if (removed) {
+				fireContentsChanged(this, 0, getSize());
+			}
+			return removed;
+		}
+	}
+
 	/**
 	 * Create the frame.
 	 */
 	public TelaMenuUsuario() {
 		IFachada f = Fachada.getInstance();
+		SortedListModel modelFilme = new SortedListModel();
+		SortedListModel modelSessao = new SortedListModel();
 
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,49 +206,18 @@ public class TelaMenuUsuario extends JFrame {
 		lblListaFilmes.setFont(new Font("OCR A Extended", Font.ITALIC, 18));
 		lblListaFilmes.setBounds(701, 235, 220, 45);
 		contentPane.add(lblListaFilmes);
-		listFilme.setModel(new AbstractListModel() {
-			String[] values = new String[] { fauno.getNome(), cadaver.getNome() };
-
-			public int getSize() {
-				return values.length;
-			}
-
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		listFilme.setModel(modelFilme);
 		listFilme.setBounds(686, 291, 280, 279);
 		contentPane.add(listFilme);
-		List sessoes = new ArrayList<Sessao>();
+		List<Sessao> sess = new ArrayList<Sessao>();
 		Sessao dasTreze = new Sessao(new Sala(2, 8, 8), fauno, LocalDate.of(2016, 06, 27), LocalTime.of(13, 5, 30));
-		sessoes.add(dasTreze);
-		Cinema UCI = new Cinema("UCI Recife", 35626654, new ArrayList<Sala>(), sessoes);
-
-		JList listCinema = new JList();
-		listCinema.setModel(new AbstractListModel() {
-
-			List<String> values = f.retornaTudo();
-
-			public Object getElementAt(int index) {
-				return values.get(index);
-			}
-
-			public int getSize() {
-				return values.size();
-			}
-
-		});
-		listCinema.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-				}
-			}
-		});
-		listCinema.setBounds(42, 291, 280, 282);
-		contentPane.add(listCinema);
-
+		sess.add(dasTreze);
+		Cinema UCI = new Cinema("UCIRecife", 35626654, new ArrayList<Sala>(), sess);
+		f.cadastrarCinema(UCI);
 		JList listSessao = new JList();
+		listSessao.setModel(modelSessao);
+
+		listSessao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listSessao.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -192,6 +226,34 @@ public class TelaMenuUsuario extends JFrame {
 		});
 		listSessao.setBounds(364, 289, 280, 282);
 		contentPane.add(listSessao);
+
+		JList listCinema = new JList();
+		listCinema.setModel(new AbstractListModel() {
+
+			String[] cinemas = f.retornaTudo();
+
+			public Object getElementAt(int index) {
+				return cinemas[index];
+			}
+
+			public int getSize() {
+				return cinemas.length;
+			}
+
+		});
+		listCinema.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+
+					String nomeDoCinema = (String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex());
+					modelSessao.addAll(f.procurarCinema(nomeDoCinema).getNomeSessoes());
+
+				}
+			}
+		});
+		listCinema.setBounds(42, 291, 280, 282);
+		contentPane.add(listCinema);
 
 		JButton ferramentasIconButton = new JButton("");
 		ferramentasIconButton.setIcon(new ImageIcon("Imagens//FerramentasIcon.png"));

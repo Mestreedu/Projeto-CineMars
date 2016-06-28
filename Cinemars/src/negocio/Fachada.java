@@ -41,11 +41,6 @@ public class Fachada implements IFachada, Serializable {
 		return instance;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see negocio.IFachada#cadastrarCinema(classesBasicasCinema.Cinema)
-	 */
 	@Override
 	public void cadastrarCinema(Cinema c) {
 		cadastroCinema.cadastrar(c);
@@ -55,23 +50,13 @@ public class Fachada implements IFachada, Serializable {
 		cadastroCinema.salvar();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see negocio.IFachada#existeCinema(java.lang.String, int)
-	 */
 	@Override
 	public boolean existeCinema(String nome, int telefone) {
 		return cadastroCinema.existe(nome, telefone);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see negocio.IFachada#procurarCinema(java.lang.String)
-	 */
 	@Override
-	public ArrayList<Cinema> procurarCinema(String nome) {
+	public Cinema procurarCinema(String nome) {
 		return cadastroCinema.procurar(nome);
 	}
 
@@ -85,7 +70,7 @@ public class Fachada implements IFachada, Serializable {
 		cadastroCinema.remover(nome, telefone);
 	}
 
-	public List<String> retornaTudo() {
+	public String[] retornaTudo() {
 		return this.cadastroCinema.retornaTudo();
 	}
 

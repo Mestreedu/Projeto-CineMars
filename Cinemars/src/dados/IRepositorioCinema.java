@@ -11,11 +11,11 @@ public interface IRepositorioCinema {
 
 	void cadastrar(Cinema c);
 
-	ArrayList<Cinema> procurar(String nome);
+	Cinema procurar(String nome);
 
 	void remover(String nome, int telefone);
 
 	boolean existe(String nome, int telefone);
 
-	public List<String> retornaTudo();
+	public String[] retornaTudo();
 }

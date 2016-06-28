@@ -21,52 +21,59 @@ public class CadastroCinema implements ICadastroCinema, Serializable {
 		this.repositorio = RepositorioCinemasArray.getInstance();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroCinema#cadastrar(classesBasicasCinema.Cinema)
 	 */
 	@Override
 	public void cadastrar(Cinema c) {
 		if (c == null) {
-			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null, "PARAMETRO INVALIDO");
 		} else {
 			if (!this.existe(c.getNome(), c.getTelefone())) {
 				this.repositorio.cadastrar(c);
 			} else {
-				JOptionPane.showMessageDialog(null,"ERRO! CINEMA JÁ CADASTRADO!");
+				JOptionPane.showMessageDialog(null, "ERRO! CINEMA JÁ CADASTRADO!");
 			}
 		}
 	}
 
-	
 	public void salvar() {
 		repositorio.salvar();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroCinema#existe(java.lang.String, int)
 	 */
 	@Override
-	public boolean existe(String nome, int telefone){
+	public boolean existe(String nome, int telefone) {
 		return this.repositorio.existe(nome, telefone);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroCinema#procurar(java.lang.String)
 	 */
 	@Override
-	public ArrayList<Cinema> procurar(String nome) {
+	public Cinema procurar(String nome) {
 		return this.repositorio.procurar(nome);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroCinema#remover(java.lang.String, int)
 	 */
 	@Override
 	public void remover(String nome, int telefone) {
 		this.repositorio.remover(nome, telefone);
 	}
-	
-	public List<String> retornaTudo(){
+
+	public String[] retornaTudo() {
 		return this.repositorio.retornaTudo();
 	}
 

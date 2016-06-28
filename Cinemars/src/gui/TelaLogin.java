@@ -106,10 +106,13 @@ public class TelaLogin extends JFrame {
 					telaMenuAdmin.setResizable(false);
 					telaMenuAdmin.setLocationRelativeTo(null);
 					telaMenuAdmin.setVisible(true);
-				}else if (u != null){
+				} else if (u != null) {
 					dispose();
-					JOptionPane.showMessageDialog(null, "MENU USUARIO!");
-				}else{
+					TelaMenuUsuario telaMenuU = new TelaMenuUsuario();
+					telaMenuU.setVisible(true);
+					telaMenuU.setLocationRelativeTo(null);
+					telaMenuU.setResizable(false);
+				} else {
 					JOptionPane.showMessageDialog(null, "LOGIN INVÁLIDO!");
 				}
 			}

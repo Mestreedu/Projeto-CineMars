@@ -79,24 +79,24 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 		this.salvar();
 	}
 
-	private ArrayList<Integer> procurarIndice(String nome) {
-		ArrayList<Integer> indice = new ArrayList<Integer>();
-
-		for (int i = 0; i < cinemas.size(); i++) {
-			if ((this.cinemas.get(i).getNome()).contains(nome)) {
-				indice.add(cinemas.indexOf(cinemas.get(i)));
+	private int procurarIndice(String nome) {
+		int indice = 0;
+		boolean found = false;
+		while (found != true && indice < this.next) {
+			if (nome.equals(this.cinemas.get(indice).getNome())) {
+				found = true;
+			} else {
+				indice = indice + 1;
 			}
 		}
 		return indice;
 	}
 
-	public ArrayList<Cinema> procurar(String nome) {
-		ArrayList<Integer> indices = this.procurarIndice(nome);
-		ArrayList<Cinema> saida = new ArrayList<Cinema>();
-		if (indices != null) {
-			for (int i = 0; i < indices.size(); i++) {
-				saida.add(this.cinemas.get(indices.get(i)));
-			}
+	public Cinema procurar(String nome) {
+		int indice = this.procurarIndice(nome);
+		Cinema saida = null;
+		if (indice != next) {
+			saida = cinemas.get(indice);
 		} else {
 			System.out.println("Nenhum cinema com este nome foi encontrado.");
 		}
@@ -104,15 +104,13 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 	}
 
 	public void remover(String nome, int telefone) {
-		ArrayList<Cinema> cines = this.procurar(nome);
+		Cinema cine = this.procurar(nome);
 		if (this.existe(nome, telefone)) {
-			for (int i = 0; i < cines.size(); i++) {
-				if (cines.get(i).getTelefone() == telefone) {
-					this.cinemas.remove(this.cinemas.indexOf(cines.get(i)));
-					System.out.println("Cinema foi removido!");
-				} else {
-					System.out.println("Houve um problema! Cinema não pode ser removido.");
-				}
+			if (cine.getTelefone() == telefone) {
+				this.cinemas.remove(cine);
+				System.out.println("Cinema foi removido!");
+			} else {
+				System.out.println("Houve um problema! Cinema não pode ser removido.");
 			}
 		} else {
 			System.out.println("O parametro informado deve conter erros.");
@@ -121,22 +119,20 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 
 	public boolean existe(String nome, int telefone) {
 		boolean existe = false;
-		ArrayList<Cinema> cines = this.procurar(nome);
-		for (int i = 0; i < cines.size(); i++) {
-			if (cines.get(i).getTelefone() == telefone) {
-				existe = true;
-				System.out.println("O Cinema existe!");
-			} else {
-				System.out.println("Cinema não existe!");
-			}
+		Cinema cine = this.procurar(nome);
+		if (cine != null && cine.getTelefone() == telefone) {
+			existe = true;
+			System.out.println("O Cinema existe!");
+		} else {
+			System.out.println("Cinema não existe!");
 		}
 		return existe;
 	}
-	
-	public List<String> retornaTudo(){
-		List<String> lista = new ArrayList<String>();
-		for(Cinema c : cinemas){
-			lista.add(c.getNome());
+
+	public String[] retornaTudo() {
+		String[] lista = new String[50];
+		for (int i = 0; i < cinemas.size(); i++) {
+			lista[i] = cinemas.get(i).getNome();
 		}
 		return lista;
 	}

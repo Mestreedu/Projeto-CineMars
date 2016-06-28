@@ -34,19 +34,18 @@ public class MenuInicial extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			
+
 			public void run() {
-				
-				
+
 				try {
-				
-					    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-					        if ("Nimbus".equals(info.getName())) {
-					            UIManager.setLookAndFeel(info.getClassName());
-					            break;
-					        }
-					    }
-					
+
+					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+						if ("Nimbus".equals(info.getName())) {
+							UIManager.setLookAndFeel(info.getClassName());
+							break;
+						}
+					}
+
 					MenuInicial frame = new MenuInicial();
 					frame.setLocationRelativeTo(null);
 					frame.setResizable(false);
@@ -63,7 +62,6 @@ public class MenuInicial extends JFrame {
 	 */
 	public MenuInicial() {
 		IFachada fachada = Fachada.getInstance();
-		fachada.cadastrarFilme(new Filme("Vida e Obra de Dilma Rousseff", "Terror", "Luiz Inacio Lula da Silva", 169, 18));
 		fachada.salvarCinema();
 		fachada.salvarFilme();
 		fachada.salvarUsuario();
@@ -72,23 +70,23 @@ public class MenuInicial extends JFrame {
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnMenutelainicial = new JMenu("Menu");
 		menuBar.add(mnMenutelainicial);
-		
+
 		JMenuItem mntmCriarUsuario = new JMenuItem("Criar Usuario");
 		mnMenutelainicial.add(mntmCriarUsuario);
-		
+
 		JMenuItem mntmCriarAdministrador = new JMenuItem("Criar Administrador");
 		mnMenutelainicial.add(mntmCriarAdministrador);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton adminRegistrarButton = new JButton("");
 		adminRegistrarButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -100,7 +98,7 @@ public class MenuInicial extends JFrame {
 				telaCAdmin.setVisible(true);
 			}
 		});
-		
+
 		adminRegistrarButton.setIcon(new ImageIcon("Imagens\\AdminButton.png"));
 		adminRegistrarButton.setFont(new Font("Lucida Console", adminRegistrarButton.getFont().getStyle(), 22));
 		adminRegistrarButton.setBorder(BorderFactory.createEmptyBorder());
@@ -108,8 +106,7 @@ public class MenuInicial extends JFrame {
 		adminRegistrarButton.setContentAreaFilled(false);
 		adminRegistrarButton.setBounds(281, 177, 144, 145);
 		contentPane.add(adminRegistrarButton);
-		
-		
+
 		JButton usuarioRegistrarButton = new JButton("");
 		usuarioRegistrarButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -121,7 +118,7 @@ public class MenuInicial extends JFrame {
 				telaCUsuario.setLocationRelativeTo(null);
 			}
 		});
-		
+
 		usuarioRegistrarButton.setIcon(new ImageIcon("Imagens\\Novo Usuario Button.png"));
 		usuarioRegistrarButton.setBounds(660, 162, 155, 160);
 		usuarioRegistrarButton.setBorder(BorderFactory.createEmptyBorder());
@@ -132,7 +129,7 @@ public class MenuInicial extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		
+
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.setIcon(new ImageIcon("Imagens\\film.png"));
 		btnEntrar.addMouseListener(new MouseAdapter() {
@@ -147,16 +144,15 @@ public class MenuInicial extends JFrame {
 		});
 		btnEntrar.setBounds(494, 399, 102, 31);
 		contentPane.add(btnEntrar);
-		
+
 		JLabel usuarioImage = new JLabel("Usuario");
 		usuarioImage.setIcon(new ImageIcon("Imagens\\UserLogin1.png"));
 		usuarioImage.setBounds(505, 291, 118, 123);
 		contentPane.add(usuarioImage);
-		
-		
+
 		JLabel lblFundo = new JLabel("New label");
 		lblFundo.setIcon(new ImageIcon("Imagens\\TelaInicial.png"));
 		lblFundo.setBounds(0, 0, 1025, 682);
 		contentPane.add(lblFundo);
 	}
-	}
+}

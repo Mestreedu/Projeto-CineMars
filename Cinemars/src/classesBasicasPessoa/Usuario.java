@@ -24,7 +24,7 @@ public class Usuario extends Pessoa implements Serializable {
 	}
 
 	public void setCpf(long cpf) {
-		if (cpf <= 9999999999l || cpf > 99999999999l) {
+		if (cpf <= 10000000000l || cpf > 99999999999l) {
 			System.out.println("Numero do CPF invalido.");
 		} else {
 			this.cpf = cpf;
@@ -50,7 +50,7 @@ public class Usuario extends Pessoa implements Serializable {
 	}
 
 	public void setNumeroDoCartao(long numeroDoCartao) {
-		if (numeroDoCartao <= 99999999999999l || numeroDoCartao > 9999999999999999l) {
+		if (numeroDoCartao <= 100000000000000l || numeroDoCartao > 9999999999999999l) {
 			System.out.println("Numero do cartão invalido.");
 		} else {
 			this.numeroDoCartao = numeroDoCartao;
