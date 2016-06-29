@@ -24,7 +24,7 @@ public class CadastroAdmin implements ICadastroAdmin, Serializable {
 	public boolean cadastrar(Administrador a) {
 		boolean resposta = false;
 		if (a == null) {
-			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null, "PARAMETRO INVALIDO");
 		} else {
 			if (!(this.existe(a.getLogin()))) {
 				this.repositorio.cadastrar(a);
@@ -45,6 +45,7 @@ public class CadastroAdmin implements ICadastroAdmin, Serializable {
 	public Administrador procurarAdminSenha(String senha) {
 		return this.repositorio.procurarAdminSenha(senha);
 	}
+
 	@Override
 	public boolean existe(String login) {
 		return this.repositorio.existe(login);
@@ -72,12 +73,12 @@ public class CadastroAdmin implements ICadastroAdmin, Serializable {
 
 	public boolean login(String login, String senha) {
 		boolean logado = false;
-		if (repositorio.existe(login)) {
+		if (repositorio.existe(login) && repositorio.procurarAdminLogin(login).getSenha().equals(senha)) {
 			logado = true;
-			JOptionPane.showMessageDialog(null,"LOGIN REALIZADO COM SUCESSO");
+			JOptionPane.showMessageDialog(null, "LOGIN REALIZADO COM SUCESSO");
 			repositorio.procurarAdminLogin(login).toString();
 		} else {
-			JOptionPane.showMessageDialog(null,"LOGIN NÃO REALIZADO");
+			JOptionPane.showMessageDialog(null, "LOGIN NÃO REALIZADO");
 		}
 		return logado;
 	}

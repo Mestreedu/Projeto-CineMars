@@ -16,4 +16,6 @@ public interface IRepositorioFilme {
 
 	boolean existe(String ID);
 
+	public String[] retornaFilmes();
+
 }

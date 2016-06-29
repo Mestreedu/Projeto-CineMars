@@ -4,7 +4,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,31 +34,6 @@ public class TelaCAdmin extends JFrame {
 	private JLabel senhaCUsuario;
 	private JPasswordField passwordField;
 	private String senha;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-						if ("Nimbus".equals(info.getName())) {
-							UIManager.setLookAndFeel(info.getClassName());
-							break;
-						}
-					}
-					TelaCAdmin frame = new TelaCAdmin();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -134,10 +112,10 @@ public class TelaCAdmin extends JFrame {
 										textLogin.getText(), senha, null);
 								f.cadastrarAdmin(adm);
 								dispose();
-								TelaAdminCCinema telaAdminCCinema = new TelaAdminCCinema();
-								telaAdminCCinema.setVisible(true);
-								telaAdminCCinema.setLocationRelativeTo(null);
-								telaAdminCCinema.setResizable(false);
+								MenuInicial menu = new MenuInicial();
+								menu.setVisible(true);
+								menu.setLocationRelativeTo(null);
+								menu.setResizable(false);
 
 							} else {
 								JOptionPane.showMessageDialog(null, "ERRO, SENHA INVALIDA");
@@ -156,9 +134,26 @@ public class TelaCAdmin extends JFrame {
 			}
 		});
 
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+				MenuInicial menuInicial = new MenuInicial();
+				menuInicial.setVisible(true);
+				menuInicial.setResizable(false);
+				menuInicial.setLocationRelativeTo(null);
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon("Imagens//VoltarIcon.png"));
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
+		btnVoltar.setBounds(0, 580, 69, 74);
+		contentPane.add(btnVoltar);
+
 		JLabel lblLabelUsuario = new JLabel("New label");
-		lblLabelUsuario.setIcon(
-				new ImageIcon("Imagens\\TelaCUsuario1.jpg"));
+		lblLabelUsuario.setIcon(new ImageIcon("Imagens\\TelaCUsuario1.jpg"));
 		lblLabelUsuario.setBounds(0, 0, 1019, 654);
 		contentPane.add(lblLabelUsuario);
 	}

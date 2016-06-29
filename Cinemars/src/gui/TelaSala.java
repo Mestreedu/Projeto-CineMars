@@ -19,7 +19,12 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import classesBasicasCinema.Cinema;
 import classesBasicasCinema.Sala;
+import classesBasicasCinema.Sessao;
+import classesBasicasPessoa.Usuario;
+import negocio.Fachada;
+import negocio.IFachada;
 
 public class TelaSala extends JFrame {
 
@@ -31,43 +36,24 @@ public class TelaSala extends JFrame {
 	int colunas;
 	int fileiras;
 	int numeroDaSala;
-	private Sala sala; 
+	private Sala sala;
+	private Cinema c;
+	private Usuario u;
+	private Sessao sa;
 	char letra;
 	private JLabel lblFundoSala;
 	private String cadeiras[][];
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-						if ("Nimbus".equals(info.getName())) {
-							UIManager.setLookAndFeel(info.getClassName());
-							break;
-						}
-					}
-
-					TelaSala frame = new TelaSala();
-					frame.setTitle("CineMars");
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					frame.setBounds(100, 100, 1015, 682);
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public TelaSala(int numeroSala, int col, int fil) {
 		this.telaSalaC(numeroSala, col, fil);
 	}
 
-	public TelaSala(Sala s){
+	public TelaSala(Sala s, Cinema c, Usuario u, Sessao sa){
 		this.telaSalaC(s.getNumero(), s.getColuna(), s.getLinha());
 		this.sala = s;
+		this.c = c;
+		this.u = u;
+		this.sa = sa;
 	}
 	
 	public TelaSala() {
@@ -75,12 +61,10 @@ public class TelaSala extends JFrame {
 	}
 
 	private void telaSalaC(int numeroSala, int col, int fil) {
+		IFachada f = Fachada.getInstance();
 		cadeiras = new String[col][fil];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1015, 682);
-		setVisible(true);
-		setLocationRelativeTo(null);
-		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -126,8 +110,15 @@ public class TelaSala extends JFrame {
 					}
 				}
 				reservar();
+				c.getSalas().get(sala.getNumero());
+				f.salvarCinema();
 				mostraCadeiras();
 				JOptionPane.showMessageDialog(null, print);
+				dispose();
+				TelaBilhete tela = new TelaBilhete(u, sa, c);
+				tela.setVisible(true);
+				tela.setLocationRelativeTo(null);
+				tela.setResizable(false);
 			}
 		});
 		btnNewButton.setBounds(473, 620, 89, 23);
@@ -182,6 +173,17 @@ public class TelaSala extends JFrame {
 		return msg;
 	}
 
+	public void reservaCadeiras(String s) {
+		for (int i = 0; i < getFileiras(); i++) {
+			for (int j = 0; j < getColunas(); j++) {
+				if (poltronasArrayButton[i][j].getText().equals(s)) {
+					AbstractButton tecla = (AbstractButton) poltronasArrayButton[i][j];
+					tecla.setText("X");
+				}
+			}
+		}
+	}
+	
 	public void reservar() {
 		for (int i = 0; i < this.getColunas(); i++) {
 			for (int j = 0; j < this.getFileiras(); j++) {
@@ -189,7 +191,8 @@ public class TelaSala extends JFrame {
 				if (tecla.isSelected()) {
 					tecla.setEnabled(false);
 					tecla.setBackground(Color.RED);;
-					this.reservaCadeira(i, j);
+					String s = poltronasArrayButton[i][j].getText();
+					this.reservaCadeiras(s);
 				}
 			}
 		}

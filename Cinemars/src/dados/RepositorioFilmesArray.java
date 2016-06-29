@@ -81,7 +81,7 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 		int indice = 0;
 		boolean found = false;
 		while (found != true && indice < this.next) {
-			if (ID == this.filmes.get(indice).getID()) {
+			if (ID.equals(this.filmes.get(indice).getID())) {
 				found = true;
 			} else {
 				indice = indice + 1;
@@ -89,12 +89,12 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 		}
 		return indice;
 	}
-	
+
 	private int procurarIndiceNome(String nome) {
 		int indice = 0;
 		boolean found = false;
 		while (found != true && indice < this.next) {
-			if (nome == this.filmes.get(indice).getNome()) {
+			if (nome.equals(this.filmes.get(indice).getNome())) {
 				found = true;
 			} else {
 				indice = indice + 1;
@@ -114,7 +114,7 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 
 		return saida;
 	}
-	
+
 	public Filme procurarNome(String nome) {
 		int i = this.procurarIndiceNome(nome);
 		Filme saida = null;
@@ -148,5 +148,13 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 			System.out.println("Filme não existe!");
 		}
 		return existe;
+	}
+	
+	public String[] retornaFilmes() {
+		String[] lista = new String[filmes.size()];
+		for (int i = 0; i < filmes.size(); i++) {
+			lista[i] = filmes.get(i).getNome();
+		}
+		return lista;
 	}
 }

@@ -2,7 +2,6 @@ package negocio;
 
 import java.io.Serializable;
 
-
 import javax.swing.JOptionPane;
 
 import classesBasicasPessoa.Pessoa;
@@ -22,24 +21,25 @@ public class CadastroUsuario implements ICadastroUsuario, Serializable {
 		this.repositorio = RepositorioUsuariosArray.getInstance();
 	}
 
-	
 	public boolean cadastrar(Usuario u) {
 		boolean resposta = false;
 		if (u == null) {
-			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null, "PARAMETRO INVALIDO");
 		} else {
 			if (!(this.existe(u.getLogin()))) {
 				this.repositorio.cadastrar(u);
-				
+
 				resposta = true;
 			} else {
-				JOptionPane.showMessageDialog(null,"ERRO! LOGIN JÁ CADASTRADO! (USUARIO)");
+				JOptionPane.showMessageDialog(null, "ERRO! LOGIN JÁ CADASTRADO! (USUARIO)");
 			}
 		}
 		return resposta;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroUsuario#procurar(java.lang.String)
 	 */
 	@Override
@@ -47,16 +47,19 @@ public class CadastroUsuario implements ICadastroUsuario, Serializable {
 		return this.repositorio.procurar(login);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroUsuario#existe(java.lang.String)
 	 */
 	@Override
 	public boolean existe(String login) {
 		return this.repositorio.existe(login);
 	}
-	
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroUsuario#remover(java.lang.String)
 	 */
 	@Override
@@ -73,31 +76,28 @@ public class CadastroUsuario implements ICadastroUsuario, Serializable {
 				JOptionPane.showMessageDialog(null, "ERRO AO USUARIO SER REMOVIDO");
 			}
 		}
-		
+
 	}
-	
-	
 
 	public void printar(Usuario u) {
 		repositorio.printar(u);
 	}
 
-
 	public void salvar() {
 		repositorio.salvar();
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see negocio.ICadastroUsuario#login(java.lang.String, int)
 	 */
 	@Override
 	public boolean login(String login, String senha) {
 		boolean logado = false;
-		if (repositorio.existe(login)) {
+		if (repositorio.existe(login) && repositorio.procurar(login).getSenha().equals(senha)) {
 			logado = true;
 			JOptionPane.showMessageDialog(null, "LOGIN REALIZADO COM SUCESSO");
-			JOptionPane.showMessageDialog(null, repositorio.procurar(login).toString());
 		} else {
 			JOptionPane.showMessageDialog(null, "LOGIN NÃO REALIZADO");
 		}

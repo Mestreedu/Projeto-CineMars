@@ -3,20 +3,33 @@ package classesBasicasCinema;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Random;
 
 public class Sessao {
 
-	private Sala sala;
+	private int nSala;
 	private Filme filme;
 	private LocalDate data;
 	private LocalTime hora;
+	private String codigo;
 
-	public Sessao(Sala sala, Filme filme, LocalDate data, LocalTime hora) {
+	public Sessao(int numeroDaSala, Filme filme, LocalDate data, LocalTime hora) {
 
-		this.sala = sala;
+		this.nSala = numeroDaSala;
 		this.filme = filme;
 		this.data = data;
 		this.hora = hora;
+
+		Random rand = new Random();
+		for (int i = 0; i < 8; i++) {
+			int x = 33 + rand.nextInt(93);
+			if (i > 0) {
+				codigo += Character.toString((char) x);
+			} else {
+				codigo = Character.toString((char) x);
+			}
+		}
+		this.setCodigo(codigo);
 	}
 
 	public Filme getFilme() {
@@ -27,8 +40,20 @@ public class Sessao {
 		this.filme = filme;
 	}
 
-	public Sala getSala() {
-		return sala;
+	public int getnSala() {
+		return nSala;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setnSala(int nSala) {
+		this.nSala = nSala;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public LocalTime getHora() {
@@ -43,16 +68,12 @@ public class Sessao {
 		this.data = data;
 	}
 
-	public void setSala(Sala sala) {
-		this.sala = sala;
-	}
-
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 
 	public String toString() {
-		return "Filme: " + getFilme().getNome() + " | Sala: " + getSala().getNumero() + " | Data: "
-				+ getData().toString() + " | Hora: " + getHora().toString();
+		return "Filme: " + getFilme().getNome() + " | Sala: " + getnSala() + " | Data: " + getData().toString()
+				+ " | Hora: " + getHora().toString();
 	}
 }

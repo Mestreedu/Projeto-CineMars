@@ -67,14 +67,43 @@ public class Cinema implements Serializable {
 		return sessoes;
 	}
 
-	public String[] getNomeSessoes() {
-		String[] nomeSessoes = new String[50];
-
-		for (int i = 0; i < sessoes.size(); i++) {
-			nomeSessoes[i] = getSessoes().get(i).toString();
+	public void addSessao(Sessao sessao) {
+		if (sessao != null) {
+			this.sessoes.add(sessao);
 		}
+	}
 
-		return nomeSessoes;
+	public void gerarSalas(int qtd, int linha, int coluna) {
+		Sala s = null;
+		if (qtd > 0) {
+			for (int i = 0; i < qtd; i++) {
+				s = new Sala(i + 1, linha, coluna);
+				salas.add(s);
+				salas.get(i).setNumero(i + 1);
+			}
+		}
+	}
+
+	public String[] getNomeSessoes() {
+		String[] lista = new String[sessoes.size()];
+		for (int i = 0; i < sessoes.size(); i++) {
+			lista[i] = sessoes.get(i).toString();
+		}
+		return lista;
+	}
+
+	public String[] getNomeFilmes() {
+		String[] filmes = new String[sessoes.size()];
+		List<String> listaNegra = new ArrayList<String>();
+		for (int i = 0; i < sessoes.size(); i++) {
+			for (int j = 0; j < sessoes.size(); j++) {
+				if (!listaNegra.contains(sessoes.get(i).getFilme().getNome())) {
+					filmes[i] = sessoes.get(i).getFilme().getNome();
+					listaNegra.add(sessoes.get(i).getFilme().getNome());
+				}
+			}
+		}
+		return filmes;
 	}
 
 	public void setSessoes(List<Sessao> sessoes) {

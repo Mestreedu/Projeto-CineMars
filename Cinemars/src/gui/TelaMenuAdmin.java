@@ -1,11 +1,8 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -17,10 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
 import negocio.IFachada;
 
@@ -32,34 +29,9 @@ public class TelaMenuAdmin extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-						if ("Nimbus".equals(info.getName())) {
-							UIManager.setLookAndFeel(info.getClassName());
-							break;
-						}
-					}
-					TelaMenuAdmin frame = new TelaMenuAdmin();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public TelaMenuAdmin() {
+	public TelaMenuAdmin(Administrador adm) {
 		IFachada f = Fachada.getInstance();
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,19 +41,24 @@ public class TelaMenuAdmin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton btnCadastrarCinema = new JButton("");
-		btnCadastrarCinema.addKeyListener(new KeyAdapter() {
+		JButton btnAdicionarSessao = new JButton("");
+		btnAdicionarSessao.addMouseListener(new MouseAdapter() {
 			@Override
-			public void keyReleased(KeyEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+				TelaAdminCSessao telaSessao = new TelaAdminCSessao(adm);
+				telaSessao.setResizable(false);
+				telaSessao.setLocationRelativeTo(null);
+				telaSessao.setVisible(true);
 
 			}
 		});
-		btnCadastrarCinema.setIcon(new ImageIcon("Imagens//addCinema.png"));
-		btnCadastrarCinema.setBounds(648, 170, 131, 140);
-		btnCadastrarCinema.setBorder(BorderFactory.createEmptyBorder());
-		btnCadastrarCinema.setFocusPainted(false);
-		btnCadastrarCinema.setContentAreaFilled(false);
-		contentPane.add(btnCadastrarCinema);
+		btnAdicionarSessao.setIcon(new ImageIcon("Imagens//addCinema.png"));
+		btnAdicionarSessao.setBounds(648, 170, 131, 140);
+		btnAdicionarSessao.setBorder(BorderFactory.createEmptyBorder());
+		btnAdicionarSessao.setFocusPainted(false);
+		btnAdicionarSessao.setContentAreaFilled(false);
+		contentPane.add(btnAdicionarSessao);
 
 		JLabel lblCadastrarCinemaAdmin = new JLabel("Adicionar Sess\u00E3o");
 		lblCadastrarCinemaAdmin.setForeground(Color.LIGHT_GRAY);
@@ -107,21 +84,60 @@ public class TelaMenuAdmin extends JFrame {
 		btnVoltar.setContentAreaFilled(false);
 		contentPane.add(btnVoltar);
 
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {};
+		if (adm.getCinema() == null) {
+			JScrollPane pane = new JScrollPane();
+			JList list = new JList();
+			pane.setViewportView(list);
+			list.setModel(new AbstractListModel() {
+				String[] values = new String[] {};
 
-			public int getSize() {
-				return values.length;
-			}
+				public int getSize() {
+					return values.length;
+				}
 
-			public Object getElementAt(int index) {
-				return values[index];
+				public Object getElementAt(int index) {
+					return values[index];
+				}
+			});
+
+			pane.setBounds(96, 291, 280, 279);
+			contentPane.add(pane);
+		} else {
+			JScrollPane pane = new JScrollPane();
+			JList list = new JList();
+			pane.setViewportView(list);
+			list.setModel(new AbstractListModel() {
+				String[] values = adm.getCinema().getNomeSessoes();
+
+				public int getSize() {
+					return values.length;
+				}
+
+				public Object getElementAt(int index) {
+					return values[index];
+				}
+			});
+			pane.setBounds(96, 291, 280, 279);
+			contentPane.add(pane);
+		}
+		JButton cadastrarCineButton = new JButton("");
+		cadastrarCineButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				dispose();
+				TelaAdminCCinema tela = new TelaAdminCCinema(adm);
+				tela.setVisible(true);
+				tela.setLocationRelativeTo(null);
+				tela.setResizable(false);
 			}
 		});
-		list.setBounds(96, 291, 280, 279);
-		contentPane.add(list);
-
+		cadastrarCineButton.setIcon(new ImageIcon("Imagens//UpdateFinalIcon.png"));
+		cadastrarCineButton.setBounds(648, 384, 131, 116);
+		cadastrarCineButton.setBorder(BorderFactory.createEmptyBorder());
+		cadastrarCineButton.setContentAreaFilled(false);
+		cadastrarCineButton.setFocusPainted(false);
+		contentPane.add(cadastrarCineButton);
+		
 		JButton updateCineButton = new JButton("");
 		updateCineButton.setIcon(new ImageIcon("Imagens//UpdateFinalIcon.png"));
 		updateCineButton.setBounds(648, 384, 131, 116);

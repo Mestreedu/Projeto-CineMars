@@ -32,13 +32,15 @@ public interface IFachada {
 
 	public abstract Filme procurarFilmeID(String iD);
 
-	public abstract Filme procurarFilmeNome(String iD);
+	public abstract Filme procurarFilmeNome(String nome);
 
 	public abstract void removerFilme(String iD);
 
+	public String[] retornaFilmes();
+
 	public abstract boolean cadastrarUsuario(Usuario u);
 
-	public abstract Pessoa checkType(String Login);
+	public abstract Object checkType(String Login);
 
 	public abstract void salvarUsuario();
 
@@ -49,8 +51,6 @@ public interface IFachada {
 	public abstract void removerUsuario(String login);
 
 	public abstract boolean loginUsuario(String login, String senha);
-
-	public abstract boolean verificarLogin(String login);
 
 	public abstract void printarUsuario(Usuario u);
 
@@ -70,11 +70,11 @@ public interface IFachada {
 
 	public void cadastrarIngresso(Ingresso i);
 
-	public boolean existeIngresso(int codigo);
+	public boolean existeIngresso(String codigo);
 
-	public Ingresso procurarIngresso(int codigo);
+	public Ingresso procurarIngresso(String codigo);
 
-	public void removerIngresso(int codigo);
+	public void removerIngresso(String codigo);
 
 	public void salvarIngresso();
 }

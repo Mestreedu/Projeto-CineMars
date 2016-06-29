@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,30 +33,6 @@ public class TelaLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField textLogin;
 	private JPasswordField passwordField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-						if ("Nimbus".equals(info.getName())) {
-							UIManager.setLookAndFeel(info.getClassName());
-							break;
-						}
-					}
-					TelaLogin frame = new TelaLogin();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -88,30 +65,36 @@ public class TelaLogin extends JFrame {
 		contentPane.add(lblSenha);
 
 		JButton btnLogar = new JButton("Logar");
-		btnLogar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnLogar.setIcon(new ImageIcon("Imagens\\LoginIcon.png"));
 		btnLogar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				Pessoa p = f.checkType(textLogin.getText());
-				Usuario u = f.procurarUsuario(p.getLogin());
-				Administrador adm = f.procurarAdminLogin(p.getLogin());
-				if (adm != null) {
-					dispose();
-					f.loginAdmin(p.getLogin(), p.getSenha());
-					TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin();
-					telaMenuAdmin.setResizable(false);
-					telaMenuAdmin.setLocationRelativeTo(null);
-					telaMenuAdmin.setVisible(true);
-				} else if (u != null) {
-					dispose();
-					TelaMenuUsuario telaMenuU = new TelaMenuUsuario();
-					telaMenuU.setVisible(true);
-					telaMenuU.setLocationRelativeTo(null);
-					telaMenuU.setResizable(false);
+				Pessoa p = (Pessoa) f.checkType(textLogin.getText());
+				String senha = null;
+				for (int i = 0; i < passwordField.getPassword().length; i++) {
+					if (i > 0) {
+						senha += Character.toString(passwordField.getPassword()[i]);
+					} else {
+						senha = Character.toString(passwordField.getPassword()[i]);
+					}
+
+				}
+				if (p instanceof Administrador) {
+					if (f.loginAdmin(textLogin.getText(), senha)) {
+						dispose();
+						TelaMenuAdmin telaMenuAdmin = new TelaMenuAdmin((Administrador) p);
+						telaMenuAdmin.setResizable(false);
+						telaMenuAdmin.setLocationRelativeTo(null);
+						telaMenuAdmin.setVisible(true);
+					}
+				} else if (p instanceof Usuario) {
+					if (f.loginUsuario(textLogin.getText(), senha)) {
+						dispose();
+						TelaMenuUsuario telaMenuU = new TelaMenuUsuario((Usuario) p);
+						telaMenuU.setVisible(true);
+						telaMenuU.setLocationRelativeTo(null);
+						telaMenuU.setResizable(false);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "LOGIN INVÁLIDO!");
 				}
@@ -123,6 +106,24 @@ public class TelaLogin extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(436, 188, 218, 28);
 		contentPane.add(passwordField);
+
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+				MenuInicial menuInicial = new MenuInicial();
+				menuInicial.setVisible(true);
+				menuInicial.setResizable(false);
+				menuInicial.setLocationRelativeTo(null);
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon("Imagens//VoltarIcon.png"));
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
+		btnVoltar.setBounds(0, 307, 69, 74);
+		contentPane.add(btnVoltar);
 
 		JLabel label = new JLabel(" ");
 		label.setIcon(new ImageIcon("Imagens//PipocaLogin.png"));

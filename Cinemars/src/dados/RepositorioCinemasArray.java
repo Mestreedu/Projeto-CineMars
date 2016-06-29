@@ -130,7 +130,7 @@ public class RepositorioCinemasArray implements IRepositorioCinema, Serializable
 	}
 
 	public String[] retornaTudo() {
-		String[] lista = new String[50];
+		String[] lista = new String[cinemas.size() + 1];
 		for (int i = 0; i < cinemas.size(); i++) {
 			lista[i] = cinemas.get(i).getNome();
 		}

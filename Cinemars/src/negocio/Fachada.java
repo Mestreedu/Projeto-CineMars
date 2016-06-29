@@ -187,28 +187,12 @@ public class Fachada implements IFachada, Serializable {
 		return cadastroUsuario.login(login, senha);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see negocio.IFachada#verificarLogin(java.lang.String)
-	 */
-	@Override
-	public boolean verificarLogin(String login) {
-		boolean verificar = false;
-		if (existeUsuario(login))
-			verificar = true;
-
-		return verificar;
-	}
-
-	public Pessoa checkType(String login) {
-		Pessoa p = (Pessoa) this.procurarUsuario(login);
+	public Object checkType(String login) {
+		Pessoa p = this.procurarUsuario(login);
 		if (p != null) {
-			JOptionPane.showMessageDialog(null, "BEM-VINDO USUÁRIO!");
 		} else {
-			p = (Pessoa) this.procurarAdminLogin(login);
+			p = this.procurarAdminLogin(login);
 			if (p != null) {
-				JOptionPane.showMessageDialog(null, "BEM-VINDO ADMINISTRADOR!");
 			} else {
 				JOptionPane.showMessageDialog(null, "PESSOA NÃO ENCONTRADA!");
 			}
@@ -231,7 +215,11 @@ public class Fachada implements IFachada, Serializable {
 	}
 
 	public boolean cadastrarAdmin(Administrador a) {
-		return cadastroAdmin.cadastrar(a);
+		boolean cadastro = false;
+		if (cadastroUsuario.procurar(a.getLogin()) == null) {
+			cadastro = cadastroAdmin.cadastrar(a);
+		}
+		return cadastro;
 	}
 
 	public Administrador procurarAdminLogin(String login) {
@@ -258,19 +246,24 @@ public class Fachada implements IFachada, Serializable {
 		cadastroAdmin.salvar();
 	}
 
+	public String[] retornaFilmes() {
+		return cadastroFilme.retornaFilmes();
+
+	}
+
 	public void cadastrarIngresso(Ingresso i) {
 		cadastroIngresso.cadastrar(i);
 	}
 
-	public boolean existeIngresso(int codigo) {
+	public boolean existeIngresso(String codigo) {
 		return cadastroIngresso.existe(codigo);
 	}
 
-	public Ingresso procurarIngresso(int codigo) {
+	public Ingresso procurarIngresso(String codigo) {
 		return cadastroIngresso.procurar(codigo);
 	}
 
-	public void removerIngresso(int codigo) {
+	public void removerIngresso(String codigo) {
 		cadastroIngresso.remover(codigo);
 	}
 

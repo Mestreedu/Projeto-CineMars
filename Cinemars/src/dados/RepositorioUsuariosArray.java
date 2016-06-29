@@ -92,7 +92,7 @@ public class RepositorioUsuariosArray implements IRepositorioUsuario, Serializab
 			usuarios.add(u);
 			this.next = next + 1;
 
-			JOptionPane.showMessageDialog(null, "Usuário Cadastrado!");
+			System.out.println("Usuário Cadastrado!");
 		}
 		this.salvar();
 	}
@@ -127,7 +127,7 @@ public class RepositorioUsuariosArray implements IRepositorioUsuario, Serializab
 		if (i != this.next) {
 			saida = this.usuarios.get(i);
 		} else {
-			JOptionPane.showMessageDialog(null, "O USUARIO NÃO FOI ENCONTRADO!");
+			System.out.println("O USUARIO NÃO FOI ENCONTRADO!");
 		}
 
 		return saida;

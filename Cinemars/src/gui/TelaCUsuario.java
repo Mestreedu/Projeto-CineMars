@@ -4,7 +4,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,40 +37,9 @@ public class TelaCUsuario extends JFrame {
 	private JTextField textEmail;
 	private JTextField textLogin;
 	private JLabel senhaCUsuario;
-	private JLabel cpfCUsuario;
-	private JTextField textCpf;
 	private JLabel idadeCUsuario;
 	private JPasswordField passwordField;
-	private JLabel nCartaoCUsuario;
-	private JTextField textCartao;
-	private long nCartao;
 	private String senha;
-	private long cpf;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-						if ("Nimbus".equals(info.getName())) {
-							UIManager.setLookAndFeel(info.getClassName());
-							break;
-						}
-					}
-					TelaCUsuario frame = new TelaCUsuario();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -82,7 +54,6 @@ public class TelaCUsuario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		
 		JLabel nomeCUsuario = new JLabel("Nome");
 		nomeCUsuario.setFont(nomeCUsuario.getFont().deriveFont(nomeCUsuario.getFont().getStyle() | Font.BOLD));
 		nomeCUsuario.setBounds(566, 155, 33, 16);
@@ -103,29 +74,19 @@ public class TelaCUsuario extends JFrame {
 		senhaCUsuario.setBounds(563, 275, 36, 16);
 		contentPane.add(senhaCUsuario);
 
-		cpfCUsuario = new JLabel("CPF");
-		cpfCUsuario.setFont(cpfCUsuario.getFont().deriveFont(cpfCUsuario.getFont().getStyle() | Font.BOLD));
-		cpfCUsuario.setBounds(566, 309, 22, 16);
-		contentPane.add(cpfCUsuario);
-
 		idadeCUsuario = new JLabel("Idade");
 		idadeCUsuario.setFont(idadeCUsuario.getFont().deriveFont(idadeCUsuario.getFont().getStyle() | Font.BOLD));
-		idadeCUsuario.setBounds(566, 355, 36, 16);
+		idadeCUsuario.setBounds(563, 314, 36, 16);
 		contentPane.add(idadeCUsuario);
-
-		nCartaoCUsuario = new JLabel("N\u00FAmero do Cart\u00E3o");
-		nCartaoCUsuario.setFont(nCartaoCUsuario.getFont().deriveFont(nCartaoCUsuario.getFont().getStyle() | Font.BOLD));
-		nCartaoCUsuario.setBounds(494, 394, 103, 16);
-		contentPane.add(nCartaoCUsuario);
 
 		JSpinner spinIdade = new JSpinner();
 		spinIdade.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), new Integer(100), new Integer(1)));
-		spinIdade.setBounds(603, 349, 54, 28);
+		spinIdade.setBounds(603, 308, 54, 28);
 		contentPane.add(spinIdade);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setIcon(new ImageIcon("Imagens\\Sign.png"));
-		btnCadastrar.setBounds(727, 447, 109, 28);
+		btnCadastrar.setBounds(727, 406, 109, 28);
 		contentPane.add(btnCadastrar);
 
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -135,7 +96,7 @@ public class TelaCUsuario extends JFrame {
 					if (textEmail.getText().length() > 0) {
 						if (textLogin.getText().length() > 0) {
 							if (passwordField.getPassword().length > 0) {
-								char [] codigo = passwordField.getPassword();
+								char[] codigo = passwordField.getPassword();
 								for (int i = 0; i < codigo.length; i++) {
 									if (i > 0) {
 										senha += Character.toString(codigo[i]);
@@ -143,43 +104,20 @@ public class TelaCUsuario extends JFrame {
 										senha = Character.toString(codigo[i]);
 									}
 								}
+								if (senha != null) {
+									
+									Usuario u = new Usuario(textNome.getText(), textEmail.getText(),
+											textLogin.getText(), senha, spinIdade.getValue());
+									f.cadastrarUsuario(u);
+									f.printarUsuario(u);
+									dispose();
+									MenuInicial menu = new MenuInicial();
+									menu.setVisible(true);
+									menu.setLocationRelativeTo(null);
+									menu.setResizable(false);
 
-								if (textCpf.getText().length() == 11) {
-
-									if (textCartao.getText().length() > 0) {
-
-										if (senha != null) {
-											cpf = Long.parseLong(textCpf.getText());
-											char[] cartaoNum = textCartao.getText().toCharArray();
-											for (int j = 0; j < textCartao.getText().length(); j++) {
-												if (cartaoNum[j] == '0' || cartaoNum[j] == '1' || cartaoNum[j] == '2'
-														|| cartaoNum[j] == '3' || cartaoNum[j] == '4'
-														|| cartaoNum[j] == '5' || cartaoNum[j] == '6'
-														|| cartaoNum[j] == '7' || cartaoNum[j] == '8'
-														|| cartaoNum[j] == '9') {
-
-													//nCartao += cartaoNum[j];
-												} else {
-													
-												}
-											
-											nCartao = Long.valueOf(textCartao.getText()).longValue();
-											}
-
-											Usuario u = new Usuario(textNome.getText(), textEmail.getText(),
-													textLogin.getText(), senha, cpf, spinIdade.getValue(), nCartao);
-											f.cadastrarUsuario(u);
-											f.printarUsuario(u);
-											dispose();
-
-										}
-
-									} else {
-										JOptionPane.showMessageDialog(null, "ERRO, NUMERO DE CARTAO INVALIDO");
-									}
-								} else {
-									JOptionPane.showMessageDialog(null, "ERRO, CPF INVALIDO");
 								}
+
 							} else {
 								JOptionPane.showMessageDialog(null, "ERRO, SENHA INVALIDA");
 							}
@@ -200,16 +138,6 @@ public class TelaCUsuario extends JFrame {
 		passwordField.setBounds(603, 269, 380, 28);
 		contentPane.add(passwordField);
 
-		textCartao = new JTextField();
-		textCartao.setColumns(10);
-		textCartao.setBounds(603, 388, 380, 28);
-		contentPane.add(textCartao);
-
-		textCpf = new JTextField();
-		textCpf.setColumns(10);
-		textCpf.setBounds(603, 303, 380, 28);
-		contentPane.add(textCpf);
-
 		textEmail = new JTextField();
 		textEmail.setColumns(10);
 		textEmail.setBounds(603, 189, 380, 28);
@@ -225,6 +153,24 @@ public class TelaCUsuario extends JFrame {
 		textLogin.setBounds(604, 229, 380, 28);
 		contentPane.add(textLogin);
 
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+				MenuInicial menuInicial = new MenuInicial();
+				menuInicial.setVisible(true);
+				menuInicial.setResizable(false);
+				menuInicial.setLocationRelativeTo(null);
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon("Imagens//VoltarIcon.png"));
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
+		btnVoltar.setBounds(0, 570, 69, 74);
+		contentPane.add(btnVoltar);
+		
 		JLabel lblLabelUsuario = new JLabel("New label");
 		lblLabelUsuario.setIcon(new ImageIcon("Imagens\\TelaCUsuario1.jpg"));
 		lblLabelUsuario.setBounds(0, -10, 1009, 654);

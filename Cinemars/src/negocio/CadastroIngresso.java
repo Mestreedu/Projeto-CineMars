@@ -22,23 +22,23 @@ public class CadastroIngresso implements ICadastroIngresso, Serializable {
 	@Override
 	public void cadastrar(Ingresso i) {
 		if (i == null) {
-			JOptionPane.showMessageDialog(null,"PARAMETRO INVALIDO");
+			JOptionPane.showMessageDialog(null, "PARAMETRO INVALIDO");
 		} else {
 			if (!this.existe(i.getCodigo())) {
 				this.repositorio.cadastrar(i);
 			} else {
-				JOptionPane.showMessageDialog(null,"ERRO! INGRESSO JÁ CADASTRADO!");
+				JOptionPane.showMessageDialog(null, "ERRO! INGRESSO JÁ CADASTRADO!");
 			}
 		}
 	}
 
 	@Override
-	public boolean existe(int codigo) {
+	public boolean existe(String codigo) {
 		return this.repositorio.existe(codigo);
 	}
 
 	@Override
-	public Ingresso procurar(int codigo) {
+	public Ingresso procurar(String codigo) {
 		return this.repositorio.procurar(codigo);
 	}
 
@@ -47,7 +47,7 @@ public class CadastroIngresso implements ICadastroIngresso, Serializable {
 	}
 
 	@Override
-	public void remover(int codigo) {
+	public void remover(String codigo) {
 		this.repositorio.remover(codigo);
 	}
 

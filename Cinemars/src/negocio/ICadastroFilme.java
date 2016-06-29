@@ -16,4 +16,6 @@ public interface ICadastroFilme {
 
 	public abstract void salvar();
 
+	public String[] retornaFilmes();
+
 }

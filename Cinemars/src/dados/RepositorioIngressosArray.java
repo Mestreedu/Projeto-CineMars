@@ -78,11 +78,11 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 
 	}
 
-	private int procurarIndice(int codigo) {
+	private int procurarIndice(String codigo) {
 		int indice = 0;
 		boolean found = false;
 		while (found != true && indice < this.next) {
-			if (codigo == this.ingressos.get(indice).getCodigo()) {
+			if (codigo.equals(this.ingressos.get(indice).getCodigo())) {
 				found = true;
 			} else {
 				indice = indice + 1;
@@ -91,7 +91,7 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 		return indice;
 	}
 
-	public Ingresso procurar(int codigo) {
+	public Ingresso procurar(String codigo) {
 		int i = this.procurarIndice(codigo);
 		Ingresso saida = null;
 		if (i != this.next) {
@@ -103,7 +103,7 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 		return saida;
 	}
 
-	public void remover(int codigo) {
+	public void remover(String codigo) {
 		if (existe(codigo)) {
 			Ingresso i = procurar(codigo);
 			this.ingressos.remove(i);
@@ -114,7 +114,7 @@ public class RepositorioIngressosArray implements IRepositorioIngresso, Serializ
 
 	}
 
-	public boolean existe(int codigo) {
+	public boolean existe(String codigo) {
 		boolean existe = false;
 		Ingresso i = this.procurar(codigo);
 		if (i != null) {
