@@ -129,8 +129,8 @@ public class TelaSala extends JFrame {
 				}
 				f.salvarCinema();
 				mostraCadeiras();
-				JOptionPane.showMessageDialog(null, print);
 				cadeirasReservadas.clear();
+				JOptionPane.showMessageDialog(null, print);
 				if (valido) {
 					dispose();
 					TelaBilhete tela = new TelaBilhete(u, sa, c);
@@ -138,7 +138,13 @@ public class TelaSala extends JFrame {
 					tela.setLocationRelativeTo(null);
 					tela.setResizable(false);
 				} else {
+					cadeirasReservadas.clear();
 					JOptionPane.showMessageDialog(null, "Cadeiras já Reservadas!");
+					dispose();
+					TelaMenuUsuario tela = new TelaMenuUsuario(u);
+					tela.setVisible(true);
+					tela.setResizable(false);
+					tela.setLocationRelativeTo(null);
 				}
 
 			}
@@ -189,7 +195,6 @@ public class TelaSala extends JFrame {
 		String msg = "LUGAR INDISPONÍVEL!\n";
 		AbstractButton tecla = (AbstractButton) poltronasArrayButton[x][y];
 		msg = "LUGAR RESERVADO COM SUCESSO - CADEIRA: " + tecla.getText();
-		tecla.setText("X");
 		System.out.println(msg);
 
 		return msg;
@@ -202,7 +207,6 @@ public class TelaSala extends JFrame {
 				if (poltronasArrayButton[i][j].getText().equals(s)) {
 					AbstractButton tecla = (AbstractButton) poltronasArrayButton[i][j];
 					cadeirasReservadas.add(tecla.getText());
-					tecla.setText("X");
 				}
 			}
 		}
