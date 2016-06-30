@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 import classesBasicasPessoa.Usuario;
 import negocio.Fachada;
 import negocio.IFachada;
+import java.awt.Toolkit;
 
 public class TelaCUsuario extends JFrame {
 
@@ -45,8 +46,9 @@ public class TelaCUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCUsuario() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		IFachada f = Fachada.getInstance();
-		setTitle("CineMars");
+		setTitle("Cinemars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1015, 682);
 		contentPane = new JPanel();
@@ -105,17 +107,20 @@ public class TelaCUsuario extends JFrame {
 									}
 								}
 								if (senha != null) {
-									
+
 									Usuario u = new Usuario(textNome.getText(), textEmail.getText(),
 											textLogin.getText(), senha, spinIdade.getValue());
-									f.cadastrarUsuario(u);
-									f.printarUsuario(u);
-									dispose();
-									MenuInicial menu = new MenuInicial();
-									menu.setVisible(true);
-									menu.setLocationRelativeTo(null);
-									menu.setResizable(false);
-
+									if (f.cadastrarUsuario(u)) {
+										f.printarUsuario(u);
+										dispose();
+										MenuInicial menu = new MenuInicial();
+										menu.setVisible(true);
+										menu.setLocationRelativeTo(null);
+										menu.setResizable(false);
+									} else {
+										JOptionPane.showMessageDialog(null,
+												"Ocorreu um erro no teu cadastro, por favor, verifique o que esta errado e tente novamente.");
+									}
 								}
 
 							} else {
@@ -170,10 +175,10 @@ public class TelaCUsuario extends JFrame {
 		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
 		btnVoltar.setBounds(0, 570, 69, 74);
 		contentPane.add(btnVoltar);
-		
+
 		JLabel lblLabelUsuario = new JLabel("New label");
 		lblLabelUsuario.setIcon(new ImageIcon("Imagens\\TelaCUsuario1.jpg"));
-		lblLabelUsuario.setBounds(0, -10, 1009, 654);
+		lblLabelUsuario.setBounds(0, -10, 1009, 664);
 		contentPane.add(lblLabelUsuario);
 	}
 }

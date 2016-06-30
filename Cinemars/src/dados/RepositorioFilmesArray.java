@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import classesBasicasCinema.Filme;
 
@@ -149,11 +150,17 @@ public class RepositorioFilmesArray implements IRepositorioFilme, Serializable {
 		}
 		return existe;
 	}
-	
+
 	public String[] retornaFilmes() {
+		List<String> listaNegra = new ArrayList<String>();
 		String[] lista = new String[filmes.size()];
 		for (int i = 0; i < filmes.size(); i++) {
-			lista[i] = filmes.get(i).getNome();
+			for (int j = 0; j < filmes.size(); j++) {
+				if (!listaNegra.contains(filmes.get(i).getNome())) {
+					lista[i] = filmes.get(i).getNome();
+					listaNegra.add(filmes.get(i).getNome());
+				}
+			}
 		}
 		return lista;
 	}

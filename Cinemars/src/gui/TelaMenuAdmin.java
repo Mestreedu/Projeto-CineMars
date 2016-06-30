@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
 import negocio.IFachada;
+import java.awt.Toolkit;
 
 public class TelaMenuAdmin extends JFrame {
 
@@ -32,6 +33,7 @@ public class TelaMenuAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaMenuAdmin(Administrador adm) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		IFachada f = Fachada.getInstance();
 		setTitle("CineMars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,31 +43,56 @@ public class TelaMenuAdmin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton btnAdicionarSessao = new JButton("");
-		btnAdicionarSessao.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				dispose();
-				TelaAdminCSessao telaSessao = new TelaAdminCSessao(adm);
-				telaSessao.setResizable(false);
-				telaSessao.setLocationRelativeTo(null);
-				telaSessao.setVisible(true);
+		if (adm.getCinema() != null) {
+			JLabel lblAdcionarSessao = new JLabel("Adicionar Sess\u00E3o");
+			lblAdcionarSessao.setForeground(Color.LIGHT_GRAY);
+			lblAdcionarSessao.setFont(new Font("OCR A Extended", Font.ITALIC, 15));
+			lblAdcionarSessao.setBounds(639, 291, 156, 65);
+			contentPane.add(lblAdcionarSessao);
+			JButton btnAdicionarSessao = new JButton("");
+			btnAdicionarSessao.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					dispose();
+					TelaAdminCSessao telaSessao = new TelaAdminCSessao(adm);
+					telaSessao.setResizable(false);
+					telaSessao.setLocationRelativeTo(null);
+					telaSessao.setVisible(true);
 
-			}
-		});
-		btnAdicionarSessao.setIcon(new ImageIcon("Imagens//addCinema.png"));
-		btnAdicionarSessao.setBounds(648, 170, 131, 140);
-		btnAdicionarSessao.setBorder(BorderFactory.createEmptyBorder());
-		btnAdicionarSessao.setFocusPainted(false);
-		btnAdicionarSessao.setContentAreaFilled(false);
-		contentPane.add(btnAdicionarSessao);
+				}
+			});
+			btnAdicionarSessao.setIcon(new ImageIcon("Imagens//addCinema.png"));
+			btnAdicionarSessao.setBounds(648, 170, 131, 140);
+			btnAdicionarSessao.setBorder(BorderFactory.createEmptyBorder());
+			btnAdicionarSessao.setFocusPainted(false);
+			btnAdicionarSessao.setContentAreaFilled(false);
+			contentPane.add(btnAdicionarSessao);
+		}
 
-		JLabel lblCadastrarCinemaAdmin = new JLabel("Adicionar Sess\u00E3o");
-		lblCadastrarCinemaAdmin.setForeground(Color.LIGHT_GRAY);
-		lblCadastrarCinemaAdmin.setFont(new Font("OCR A Extended", Font.ITALIC, 15));
-		lblCadastrarCinemaAdmin.setBounds(639, 291, 156, 65);
-		contentPane.add(lblCadastrarCinemaAdmin);
+		if (adm.getCinema() == null) {
+			JLabel lblCadastrarCinema = new JLabel("Cadastrar Cinema");
+			lblCadastrarCinema.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
+			lblCadastrarCinema.setBounds(648, 493, 130, 14);
+			contentPane.add(lblCadastrarCinema);
 
+			JButton cadastrarCineButton = new JButton("");
+			cadastrarCineButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					dispose();
+					TelaAdminCCinema tela = new TelaAdminCCinema(adm);
+					tela.setVisible(true);
+					tela.setLocationRelativeTo(null);
+					tela.setResizable(false);
+				}
+			});
+			cadastrarCineButton.setIcon(new ImageIcon("Imagens//UpdateFinalIcon.png"));
+			cadastrarCineButton.setBounds(648, 384, 131, 116);
+			cadastrarCineButton.setBorder(BorderFactory.createEmptyBorder());
+			cadastrarCineButton.setContentAreaFilled(false);
+			cadastrarCineButton.setFocusPainted(false);
+			contentPane.add(cadastrarCineButton);
+		}
 		JButton btnVoltar = new JButton("");
 		btnVoltar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -120,37 +147,6 @@ public class TelaMenuAdmin extends JFrame {
 			pane.setBounds(96, 291, 280, 279);
 			contentPane.add(pane);
 		}
-		JButton cadastrarCineButton = new JButton("");
-		cadastrarCineButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				dispose();
-				TelaAdminCCinema tela = new TelaAdminCCinema(adm);
-				tela.setVisible(true);
-				tela.setLocationRelativeTo(null);
-				tela.setResizable(false);
-			}
-		});
-		cadastrarCineButton.setIcon(new ImageIcon("Imagens//UpdateFinalIcon.png"));
-		cadastrarCineButton.setBounds(648, 384, 131, 116);
-		cadastrarCineButton.setBorder(BorderFactory.createEmptyBorder());
-		cadastrarCineButton.setContentAreaFilled(false);
-		cadastrarCineButton.setFocusPainted(false);
-		contentPane.add(cadastrarCineButton);
-		
-		JButton updateCineButton = new JButton("");
-		updateCineButton.setIcon(new ImageIcon("Imagens//UpdateFinalIcon.png"));
-		updateCineButton.setBounds(648, 384, 131, 116);
-		updateCineButton.setBorder(BorderFactory.createEmptyBorder());
-		updateCineButton.setContentAreaFilled(false);
-		updateCineButton.setFocusPainted(false);
-		contentPane.add(updateCineButton);
-
-		JLabel lblAtualizarCinemas = new JLabel("Atualizar Cinema");
-		lblAtualizarCinemas.setForeground(new Color(211, 211, 211));
-		lblAtualizarCinemas.setFont(new Font("OCR A Extended", Font.ITALIC, 15));
-		lblAtualizarCinemas.setBounds(639, 486, 156, 65);
-		contentPane.add(lblAtualizarCinemas);
 
 		JLabel lblListadeCinemasSeus = new JLabel("Suas Sess\u00F5es");
 		lblListadeCinemasSeus.setIcon(new ImageIcon("Imagens//Movie-Studio-icon.png"));
@@ -158,14 +154,6 @@ public class TelaMenuAdmin extends JFrame {
 		lblListadeCinemasSeus.setFont(new Font("OCR A Extended", Font.ITALIC, 18));
 		lblListadeCinemasSeus.setBounds(135, 244, 220, 45);
 		contentPane.add(lblListadeCinemasSeus);
-
-		JButton ferramentasIconButton = new JButton("");
-		ferramentasIconButton.setIcon(new ImageIcon("Imagens//FerramentasIcon.png"));
-		ferramentasIconButton.setBounds(963, 593, 52, 65);
-		ferramentasIconButton.setBorder(BorderFactory.createEmptyBorder());
-		ferramentasIconButton.setFocusPainted(false);
-		ferramentasIconButton.setContentAreaFilled(false);
-		contentPane.add(ferramentasIconButton);
 
 		JLabel lblBemvindo = new JLabel("");
 		lblBemvindo.setForeground(SystemColor.textHighlight);
@@ -178,5 +166,4 @@ public class TelaMenuAdmin extends JFrame {
 		lblMenuAdmin.setBounds(0, 0, 1020, 655);
 		contentPane.add(lblMenuAdmin);
 	}
-
 }

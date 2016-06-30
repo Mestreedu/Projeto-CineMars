@@ -20,6 +20,7 @@ import classesBasicasCinema.Filme;
 import classesBasicasPessoa.Usuario;
 import negocio.Fachada;
 import negocio.IFachada;
+import javax.swing.JScrollBar;
 
 public class TelaFilme extends JFrame {
 
@@ -32,7 +33,7 @@ public class TelaFilme extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
 	public TelaFilme(Filme filme, Usuario u) {
 		setTitle("Cinemars");
@@ -67,7 +68,7 @@ public class TelaFilme extends JFrame {
 
 		JLabel lblNomeDosAtores = new JLabel(filme.getAtores());
 		lblNomeDosAtores.setVerticalAlignment(SwingConstants.TOP);
-		lblNomeDosAtores.setBounds(73, 62, 264, 48);
+		lblNomeDosAtores.setBounds(73, 62, 264, 27);
 		panel_1.add(lblNomeDosAtores);
 
 		JLabel lblGenero = new JLabel("Genero: ");
@@ -78,16 +79,27 @@ public class TelaFilme extends JFrame {
 		lblEstiloDoGenero.setBounds(73, 122, 264, 16);
 		panel_1.add(lblEstiloDoGenero);
 
-		JTextPane textPane = new JTextPane();
-		textPane.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		textPane.setText(filme.getSinopse());
-		textPane.setEditable(false);
-		textPane.setBounds(6, 173, 331, 311);
-		panel_1.add(textPane);
-
 		JLabel lblSinopse = new JLabel("Sinopse: ");
 		lblSinopse.setBounds(6, 145, 55, 16);
 		panel_1.add(lblSinopse);
+
+		JLabel lblClassificaoIndicativa = new JLabel("Classifica\u00E7\u00E3o Indicativa: ");
+		lblClassificaoIndicativa.setBounds(6, 90, 144, 16);
+		panel_1.add(lblClassificaoIndicativa);
+
+		JLabel lblNewLabel = new JLabel("CI");
+		lblNewLabel.setBounds(162, 90, 55, 16);
+		panel_1.add(lblNewLabel);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(6, 173, 331, 311);
+		panel_1.add(scrollPane_1);
+
+		JTextPane textPane = new JTextPane();
+		textPane.setText(filme.getSinopse());
+		textPane.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		textPane.setEditable(false);
+		scrollPane_1.setViewportView(textPane);
 
 		JButton btnVoltar = new JButton("");
 		btnVoltar.addMouseListener(new MouseAdapter() {

@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,6 +30,7 @@ import classesBasicasCinema.Sessao;
 import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
 import negocio.IFachada;
+import java.awt.Toolkit;
 
 public class TelaAdminCCinema extends JFrame {
 
@@ -44,6 +48,8 @@ public class TelaAdminCCinema extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaAdminCCinema(Administrador adm) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
+		setTitle("Cinemars");
 		IFachada fachada = Fachada.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
@@ -51,6 +57,25 @@ public class TelaAdminCCinema extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+				TelaMenuAdmin menuAdmin = new TelaMenuAdmin(adm);
+				menuAdmin.setVisible(true);
+				menuAdmin.setResizable(false);
+				menuAdmin.setLocationRelativeTo(null);
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon("Imagens\\VoltarIcon.png"));
+		btnVoltar.setBounds(0, 570, 69, 74);
+		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setVisible(true);
+		btnVoltar.setContentAreaFilled(false);
+		contentPane.add(btnVoltar);
 
 		JLabel lblNomeCinema = new JLabel("Nome:");
 		lblNomeCinema.setFont(new Font("OCR A Extended", Font.BOLD, 15));

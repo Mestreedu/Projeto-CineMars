@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import classesBasicasPessoa.Administrador;
 import negocio.Fachada;
 import negocio.IFachada;
+import java.awt.Toolkit;
 
 public class TelaCAdmin extends JFrame {
 
@@ -39,9 +40,10 @@ public class TelaCAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCAdmin() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		setResizable(false);
 		IFachada f = Fachada.getInstance();
-		setTitle("CineMars");
+		setTitle("Cinemars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
 		contentPane = new JPanel();
@@ -110,13 +112,16 @@ public class TelaCAdmin extends JFrame {
 								}
 								Administrador adm = new Administrador(textNome.getText(), textEmail.getText(),
 										textLogin.getText(), senha, null);
-								f.cadastrarAdmin(adm);
-								dispose();
-								MenuInicial menu = new MenuInicial();
-								menu.setVisible(true);
-								menu.setLocationRelativeTo(null);
-								menu.setResizable(false);
-
+								if (f.cadastrarAdmin(adm)) {
+									dispose();
+									MenuInicial menu = new MenuInicial();
+									menu.setVisible(true);
+									menu.setLocationRelativeTo(null);
+									menu.setResizable(false);
+								} else {
+									JOptionPane.showMessageDialog(null,
+											"Ocorreu um erro no teu cadastro, por favor, verifique o que esta errado e tente novamente.");
+								}
 							} else {
 								JOptionPane.showMessageDialog(null, "ERRO, SENHA INVALIDA");
 							}

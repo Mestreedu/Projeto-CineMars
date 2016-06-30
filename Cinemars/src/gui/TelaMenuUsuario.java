@@ -2,7 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -32,8 +33,9 @@ public class TelaMenuUsuario extends JFrame {
 	private JPanel contentPane;
 
 	public TelaMenuUsuario(Usuario u) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		IFachada f = Fachada.getInstance();
-		setTitle("CineMars");
+		setTitle("Cinemars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
 		contentPane = new JPanel();
@@ -73,14 +75,14 @@ public class TelaMenuUsuario extends JFrame {
 		lblSesses.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSesses.setForeground(Color.BLACK);
 		lblSesses.setFont(new Font("OCR A Extended", Font.ITALIC, 18));
-		lblSesses.setBounds(394, 235, 220, 45);
+		lblSesses.setBounds(394, 157, 220, 45);
 		contentPane.add(lblSesses);
 
 		JLabel lblCinemas = new JLabel("Cinemas");
 		lblCinemas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCinemas.setForeground(Color.BLACK);
 		lblCinemas.setFont(new Font("OCR A Extended", Font.ITALIC, 18));
-		lblCinemas.setBounds(87, 235, 220, 45);
+		lblCinemas.setBounds(87, 157, 220, 45);
 		contentPane.add(lblCinemas);
 
 		JLabel lblListaFilmes = new JLabel("Filmes");
@@ -176,37 +178,34 @@ public class TelaMenuUsuario extends JFrame {
 		listCinema.setBounds(43, 213, 280, 282);
 		contentPane.add(listCinema);
 
-		JButton ferramentasIconButton = new JButton("");
-		ferramentasIconButton.setIcon(new ImageIcon("Imagens//FerramentasIcon.png"));
-		ferramentasIconButton.setBounds(963, 593, 52, 65);
-		ferramentasIconButton.setBorder(BorderFactory.createEmptyBorder());
-		ferramentasIconButton.setFocusPainted(false);
-		ferramentasIconButton.setContentAreaFilled(false);
-		contentPane.add(ferramentasIconButton);
-
 		btnReservarCadeiras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				dispose();
-				TelaSala sala = new TelaSala(
-						f.procurarCinema((String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex()))
-								.getSalas().get(0),
-						f.procurarCinema(
-								(String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex())),
-						u, f.procurarCinema((String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex()))
-								.getSessoes().get(listSessao.getSelectedIndex()));
-				sala.setVisible(true);
-				sala.setLocationRelativeTo(null);
-				sala.setResizable(false);
+				int idade = (Integer) u.getIdade();
+				if (idade >= f
+						.procurarCinema((String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex()))
+						.getSessoes().get(listSessao.getSelectedIndex()).getFilme().getClassificacaoIndicativa()) {
+					dispose();
+					int numSala = f
+							.procurarCinema((String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex()))
+							.getSessoes().get(listSessao.getSelectedIndex()).getnSala();
+					TelaSala sala = new TelaSala(
+							f.procurarCinema((String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex()))
+									.getSalas().get(numSala),
+							f.procurarCinema(
+									(String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex())),
+							u,
+							f.procurarCinema((String) listCinema.getModel().getElementAt(listCinema.getSelectedIndex()))
+									.getSessoes().get(listSessao.getSelectedIndex()));
 
+					sala.setVisible(true);
+					sala.setLocationRelativeTo(null);
+					sala.setResizable(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Esse filme não é indicado para alguém da sua idade!");
+				}
 			}
 		});
-
-		JLabel lblBemvindo = new JLabel("");
-		lblBemvindo.setForeground(SystemColor.textHighlight);
-		lblBemvindo.setFont(new Font("Twentieth Century Medium", Font.BOLD, 26));
-		lblBemvindo.setBounds(269, 50, 438, 45);
-		contentPane.add(lblBemvindo);
 
 		JLabel lblMenuAdmin = new JLabel("");
 		lblMenuAdmin.setIcon(new ImageIcon("Imagens//TelaCAdmin.jpg"));

@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -65,6 +67,11 @@ public class TelaBilhete extends JFrame {
 				}
 				f.cadastrarIngresso(new Ingresso(u, s, c, 10));
 				JOptionPane.showMessageDialog(null, "Obrigado pela preferencia, volte sempre. Bom filme!");
+				dispose();
+				TelaMenuUsuario menuInicial = new TelaMenuUsuario(u);
+				menuInicial.setVisible(true);
+				menuInicial.setResizable(false);
+				menuInicial.setLocationRelativeTo(null);
 			}
 		});
 		btnComprar.setBounds(396, 386, 238, 86);
@@ -112,6 +119,24 @@ public class TelaBilhete extends JFrame {
 		txtpnSelecioneOCarto.setText("Selecione o cart\u00E3o que deseja escolher para efetuar o pagamento: ");
 		txtpnSelecioneOCarto.setBounds(290, 79, 417, 41);
 		contentPane.add(txtpnSelecioneOCarto);
+
+		JButton btnVoltar = new JButton("");
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+				TelaMenuUsuario menuInicial = new TelaMenuUsuario(u);
+				menuInicial.setVisible(true);
+				menuInicial.setResizable(false);
+				menuInicial.setLocationRelativeTo(null);
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon("Imagens//VoltarIcon.png"));
+		btnVoltar.setBounds(0, 570, 69, 74);
+		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setContentAreaFilled(false);
+		contentPane.add(btnVoltar);
 
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setIcon(new ImageIcon("Imagens\\TelaBilheteria.jpg"));

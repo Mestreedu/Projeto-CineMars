@@ -6,8 +6,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +28,7 @@ import classesBasicasCinema.Sessao;
 import classesBasicasPessoa.Usuario;
 import negocio.Fachada;
 import negocio.IFachada;
+import java.awt.Toolkit;
 
 public class TelaSala extends JFrame {
 
@@ -48,15 +52,17 @@ public class TelaSala extends JFrame {
 		this.telaSalaC(numeroSala, col, fil);
 	}
 
-	public TelaSala(Sala s, Cinema c, Usuario u, Sessao sa){
+	public TelaSala(Sala s, Cinema c, Usuario u, Sessao sa) {
 		this.telaSalaC(s.getNumero(), s.getColuna(), s.getLinha());
 		this.sala = s;
 		this.c = c;
 		this.u = u;
 		this.sa = sa;
 	}
-	
+
 	public TelaSala() {
+		setTitle("Cinemars");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		this.telaSalaC(10, 10, 10);
 	}
 
@@ -96,6 +102,24 @@ public class TelaSala extends JFrame {
 
 		contentPane.add(title);
 		contentPane.add(panelCadeiras);
+
+		JButton btnVoltar = new JButton("");
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+				TelaMenuUsuario menuInicial = new TelaMenuUsuario(u);
+				menuInicial.setVisible(true);
+				menuInicial.setResizable(false);
+				menuInicial.setLocationRelativeTo(null);
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon("Imagens//VoltarIcon.png"));
+		btnVoltar.setBounds(0, 570, 69, 74);
+		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setContentAreaFilled(false);
+		contentPane.add(btnVoltar);
 
 		JButton btnNewButton = new JButton("Reservar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -183,14 +207,15 @@ public class TelaSala extends JFrame {
 			}
 		}
 	}
-	
+
 	public void reservar() {
 		for (int i = 0; i < this.getColunas(); i++) {
 			for (int j = 0; j < this.getFileiras(); j++) {
 				AbstractButton tecla = (AbstractButton) poltronasArrayButton[i][j];
 				if (tecla.isSelected()) {
 					tecla.setEnabled(false);
-					tecla.setBackground(Color.RED);;
+					tecla.setBackground(Color.RED);
+					;
 					String s = poltronasArrayButton[i][j].getText();
 					this.reservaCadeiras(s);
 				}

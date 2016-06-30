@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import classesBasicasCinema.Filme;
 import negocio.Fachada;
 import negocio.IFachada;
+import java.awt.Toolkit;
 
 public class MenuInicial extends JFrame {
 
@@ -61,22 +62,23 @@ public class MenuInicial extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuInicial() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		IFachada fachada = Fachada.getInstance();
 		Filme fauno = new Filme("O Labirinto do Fauno", "Fantasia/Drama",
 				"Espanha, 1944. Oficialmente a Guerra Civil já terminou, mas um grupo de rebeldes ainda luta nas montanhas ao norte de Navarra. Ofelia (Ivana Baquero), de 10 anos, muda-se para a região com sua mãe, Carmen (Ariadna Gil). Lá as espera seu novo padrasto, um oficial fascista que luta para exterminar os guerrilheiros da localidade. Solitária, a menina logo descobre a amizade de Mercedes (Maribel Verdú), jovem cozinheira da casa, que serve de contato secreto dos rebeldes. Além disso, em seus passeios pelo jardim da imensa mansão em que moram, Ofelia descobre um labirinto que faz com que todo um mundo de fantasias se abra, trazendo consequências para todos à sua volta.",
-				"Guilhermo del Toro", " Ivana Baquero, Sergi López, Doug Jones...", 115, 16,
+				"Guilhermo del Toro", " Ivana Baquero, Sergi López, Doug Jones...", 118, 16,
 				new File("Imagens\\O Labirinto do Fauno.jpg"));
 		Filme cadaver = new Filme("A Noiva Cadaver", "Animação/Fantasia",
 				"Em um vilarejo europeu do século XIX vive Victor Van Dorst (Johnny Depp), um jovem que está prestes a se casar com Victoria Everglot (Emily Watson). Porém acidentalmente Victor se casa com a Noiva-Cadáver (Helena Bonham Carter), que o leva para conhecer a Terra dos Mortos. Desejando desfazer o ocorrido para poder enfim se casar com Victoria, aos poucos Victor percebe que a Terra dos Mortos é bem mais animada do que o meio vitoriano em que nasceu e cresceu.",
-				"Mike Johnson", "Johnny Depp, Helena Bonham Carter, Emily Watson", 115, 16,
+				"Mike Johnson", "Johnny Depp, Helena Bonham Carter, Emily Watson", 115, 0,
 				new File("Imagens\\Noiva Cadaver.jpg"));
 		Filme interestelar = new Filme("Interlestelar", "Ficção Cientifica/Drama",
 				"Após ver a Terra consumindo boa parte de suas reservas naturais, um grupo de astronautas recebe a missão de verificar possíveis planetas para receberem a população mundial, possibilitando a continuação da espécie. Cooper (Matthew McConaughey) é chamado para liderar o grupo e aceita a missão sabendo que pode nunca mais ver os filhos. Ao lado de Brand (Anne Hathaway), Jenkins (Marlon Sanders) e Doyle (Wes Bentley), ele seguirá em busca de uma nova casa. Com o passar dos anos, sua filha Murph (Mackenzie Foy e Jessica Chastain) investirá numa própria jornada para também tentar salvar a população do planeta.",
-				"Christopher Nolan", "Matthew McConaughey, Anne Hathaway, Michael Caine", 115, 16,
+				"Christopher Nolan", "Matthew McConaughey, Anne Hathaway, Michael Caine", 169, 12,
 				new File("Imagens\\Interestelar.jpg"));
 		Filme spawn = new Filme("Spawn, O Soldado do Inferno", "Fantasia",
 				"Al Simmons (Michael Jai White), o mais profissional agente de uma organização americana, é traído e morto por Jason Wynn (Martin Sheen), seu maquiavélico chefe, e Jessica Priest (Mindy Clarke), uma ambiciosa agente. Após cinco anos Al faz um pacto com Malebolgia, um dos demônios que comandam o inferno, para voltar à Terra para ver Wanda (Theresa Randle), sua esposa, que agora está casada com Terry Fitzgerald (D.B. Sweeney), um antigo colega de Al. Em troca Al irá liderar como Spawn os exércitos encarregados da destruição da raça humana. Na Terra Al é ajudado pelo Palhaço (John Leguizamo), um ser demoníaco que tem a missão de auxiliar Al em sua nova realidade e estimulá-lo a destruir Wynn e comandar os exércitos do inferno. Entretanto, paralelamente Palhaço fez também um acordo com Wynn, que sonha comandar a Terra e tem em seu poder o Heat-16, o mais mortal vírus já criado, que se utilizado dará início ao apocalipse, permitindo então que o Inferno ataque o Paraíso. Assim Spawn tem de decidir logo entre o Bem e o Mal em sua nova jornada na Terra.",
-				"Mark A.Z. Dippe", "Michael Jai White, Martin Sheen, John Leguizamo", 115, 16,
+				"Mark A.Z. Dippe", "Michael Jai White, Martin Sheen, John Leguizamo", 115, 18,
 				new File("Imagens\\Spawn.jpg"));
 		fachada.cadastrarFilme(fauno);
 		fachada.cadastrarFilme(cadaver);
@@ -87,7 +89,7 @@ public class MenuInicial extends JFrame {
 		fachada.salvarUsuario();
 		fachada.salvarAdmin();
 		fachada.salvarIngresso();
-		setTitle("CineMars");
+		setTitle("Cinemars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 682);
 

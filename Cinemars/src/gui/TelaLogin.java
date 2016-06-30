@@ -27,6 +27,7 @@ import negocio.IFachada;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class TelaLogin extends JFrame {
 
@@ -38,8 +39,9 @@ public class TelaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaLogin() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		IFachada f = Fachada.getInstance();
-		setTitle("CineMars");
+		setTitle("Cinemars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 680, 420);
 		contentPane = new JPanel();
