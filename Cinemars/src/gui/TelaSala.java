@@ -1,16 +1,14 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,8 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
 import classesBasicasCinema.Cinema;
@@ -28,7 +24,6 @@ import classesBasicasCinema.Sessao;
 import classesBasicasPessoa.Usuario;
 import negocio.Fachada;
 import negocio.IFachada;
-import java.awt.Toolkit;
 
 public class TelaSala extends JFrame {
 
@@ -47,6 +42,8 @@ public class TelaSala extends JFrame {
 	char letra;
 	private JLabel lblFundoSala;
 	private String cadeiras[][];
+	private List<String> cadeirasReservadas;
+	private boolean valido;
 
 	public TelaSala(int numeroSala, int col, int fil) {
 		this.telaSalaC(numeroSala, col, fil);
@@ -58,15 +55,16 @@ public class TelaSala extends JFrame {
 		this.c = c;
 		this.u = u;
 		this.sa = sa;
+
 	}
 
 	public TelaSala() {
-		setTitle("Cinemars");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\film.png"));
 		this.telaSalaC(10, 10, 10);
 	}
 
 	private void telaSalaC(int numeroSala, int col, int fil) {
+		this.valido = true;
+		this.cadeirasReservadas = new ArrayList<String>();
 		IFachada f = Fachada.getInstance();
 		cadeiras = new String[col][fil];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,24 +101,6 @@ public class TelaSala extends JFrame {
 		contentPane.add(title);
 		contentPane.add(panelCadeiras);
 
-		JButton btnVoltar = new JButton("");
-		btnVoltar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				dispose();
-				TelaMenuUsuario menuInicial = new TelaMenuUsuario(u);
-				menuInicial.setVisible(true);
-				menuInicial.setResizable(false);
-				menuInicial.setLocationRelativeTo(null);
-			}
-		});
-		btnVoltar.setIcon(new ImageIcon("Imagens//VoltarIcon.png"));
-		btnVoltar.setBounds(0, 570, 69, 74);
-		btnVoltar.setBorder(BorderFactory.createEmptyBorder());
-		btnVoltar.setFocusPainted(false);
-		btnVoltar.setContentAreaFilled(false);
-		contentPane.add(btnVoltar);
-
 		JButton btnNewButton = new JButton("Reservar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,15 +114,33 @@ public class TelaSala extends JFrame {
 					}
 				}
 				reservar();
+
+				for (int i = 0; i < sa.getReservas().size(); i++) {
+					for (int j = 0; j < sa.getReservas().size(); j++) {
+						if (sa.getReservas().get(i).equals(cadeirasReservadas.get(j))) {
+							valido = false;
+						}
+					}
+				}
+
 				c.getSalas().get(sala.getNumero());
+				for (String string : cadeirasReservadas) {
+					sa.addReserva(string);
+				}
 				f.salvarCinema();
 				mostraCadeiras();
 				JOptionPane.showMessageDialog(null, print);
-				dispose();
-				TelaBilhete tela = new TelaBilhete(u, sa, c);
-				tela.setVisible(true);
-				tela.setLocationRelativeTo(null);
-				tela.setResizable(false);
+				cadeirasReservadas.clear();
+				if (valido) {
+					dispose();
+					TelaBilhete tela = new TelaBilhete(u, sa, c);
+					tela.setVisible(true);
+					tela.setLocationRelativeTo(null);
+					tela.setResizable(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Cadeiras já Reservadas!");
+				}
+
 			}
 		});
 		btnNewButton.setBounds(473, 620, 89, 23);
@@ -198,14 +196,17 @@ public class TelaSala extends JFrame {
 	}
 
 	public void reservaCadeiras(String s) {
+
 		for (int i = 0; i < getFileiras(); i++) {
 			for (int j = 0; j < getColunas(); j++) {
 				if (poltronasArrayButton[i][j].getText().equals(s)) {
 					AbstractButton tecla = (AbstractButton) poltronasArrayButton[i][j];
+					cadeirasReservadas.add(tecla.getText());
 					tecla.setText("X");
 				}
 			}
 		}
+
 	}
 
 	public void reservar() {
@@ -222,6 +223,21 @@ public class TelaSala extends JFrame {
 			}
 		}
 
+	}
+
+	public boolean checagem(List<String> lista) {
+		boolean saida = true;
+		if (sa.getReservas().contains(lista)) {
+			saida = false;
+		}
+
+		if (saida = true) {
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Cadeiras já reservadas!");
+		}
+
+		return saida;
 	}
 
 	public void mostraCadeiras() {

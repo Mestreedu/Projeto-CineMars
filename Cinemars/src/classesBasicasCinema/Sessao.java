@@ -1,8 +1,9 @@
 package classesBasicasCinema;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Sessao {
@@ -12,9 +13,11 @@ public class Sessao {
 	private LocalDate data;
 	private LocalTime hora;
 	private String codigo;
+	private List<String> reservas;
 
 	public Sessao(int numeroDaSala, Filme filme, LocalDate data, LocalTime hora) {
 
+		reservas = new ArrayList<String>();
 		this.nSala = numeroDaSala;
 		this.filme = filme;
 		this.data = data;
@@ -70,6 +73,20 @@ public class Sessao {
 
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
+	}
+
+	public void addReserva(String reserva) {
+		if (reserva != null) {
+			reservas.add(reserva);
+		}
+	}
+
+	public List<String> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<String> reservas) {
+		this.reservas = reservas;
 	}
 
 	public String toString() {
